@@ -1,7 +1,7 @@
 const publicRouter = [
   {
     path: '',
-    redirect: 'admin/dashboard',
+    redirect: 'app/dashboard',
   },
 ]
 

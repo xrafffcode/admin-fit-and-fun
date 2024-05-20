@@ -10,6 +10,7 @@ export const useAuthStore = defineStore({
     user: null,
     loading: false,
     error: null,
+    success: null,
   }),
   getters: {
     token: state => localStorage.getItem('token'),
@@ -25,6 +26,8 @@ export const useAuthStore = defineStore({
 
         localStorage.setItem('token', token)
 
+        this.success = 'Login successful'
+
         router.push({ name: 'dashboard' })
       } catch (error) {
         this.error = handleError(error)
@@ -36,6 +39,10 @@ export const useAuthStore = defineStore({
       localStorage.removeItem('token')
 
       router.push({ name: 'login' })
+
+      this.user = null
+      this.error = null
+      this.success = 'logout'
     },
     async checkAuth() {
       this.loading = true

@@ -38,9 +38,6 @@ checkAuth()
           <VListItemTitle class="font-weight-semibold">
             {{ user?.email }}
           </VListItemTitle>
-          <VListItemSubtitle>
-            {{ user?.roles[0].name }}
-          </VListItemSubtitle>
         </VListItem>
         <VDivider class="my-2" />
 

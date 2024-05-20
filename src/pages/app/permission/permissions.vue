@@ -1,27 +1,12 @@
 <script setup>
-import { useClientStore } from '@/stores/client'
+import { ref, onBeforeMount } from 'vue'
+import { usePermissionStore } from '@/stores/permission'
+import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Kode',
-    value: 'code',
-    width: 100,
-  },
-  {
     text: 'Nama',
     value: 'name',
-  },
-  {
-    text: 'Alamat',
-    value: 'address',
-  },
-  {
-    text: 'Telepon',
-    value: 'phone',
-  },
-  {
-    text: 'Email',
-    value: 'email',
   },
   {
     text: 'Aksi',
@@ -30,28 +15,24 @@ const headers = [
   },
 ]
 
-const { clients, loading, error, success } = storeToRefs(useClientStore())
-const { fetchClients, deleteClient, activateClient } = useClientStore()
+const { permissions, loading, success } = storeToRefs(usePermissionStore())
+const { fetchPermissions, deletePermission } = usePermissionStore()
 
-fetchClients()
+fetchPermissions()
 
-async function handleDeleteClient(client) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus client ini?')
+async function handleDeletePermission(permission) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus permission ini?')
 
   if (confirmed) {
-    await deleteClient(client.id)
-    fetchClients()
+    await deletePermission(permission.id)
+    fetchPermissions()
   }
 }
 
 const search = ref('')
 
-onMounted(() => {
-  document.title = 'Client'
-})
-
-onUnmounted(() => {
-  error.value = null
+onBeforeMount(() => {
+  document.title = 'Permissions'
 })
 </script>
 
@@ -83,22 +64,23 @@ onUnmounted(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Client
+        Permissions
       </h2>
 
       <VBtn
-        to="/admin/client/create"
+        v-if="can('permission-create')"
+        :to="{ name: 'permission-create' }"
         color="primary"
       >
-        Tambah Client
+        Tambah Permission
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Client"
-        placeholder="Cari Client"
+        label="Cari Permission"
+        placeholder="Cari Permission"
         clearable
         :loading="loading"
         variant="solo"
@@ -109,7 +91,7 @@ onUnmounted(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="clients"
+          :items="permissions"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -118,7 +100,8 @@ onUnmounted(() => {
         >
           <template #item-operation="item">
             <VBtn
-              :to="{ name: 'admin-client-edit', params: { id: item.id } }"
+              v-if="can('permission-edit')"
+              :to="{ name: 'permission-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -126,17 +109,11 @@ onUnmounted(() => {
               Ubah
             </VBtn>
             <VBtn
-              :to="{ name: 'admin-client-view', params: { id: item.id } }"
-              color="info"
-              size="small"
-            >
-              Detail
-            </VBtn>
-            <VBtn
+              v-if="can('permission-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteClient(item)"
+              @click="() => handleDeletePermission(item)"
             >
               Hapus
             </VBtn>
@@ -146,4 +123,3 @@ onUnmounted(() => {
     </VCol>
   </VRow>
 </template>
-@/stores/example

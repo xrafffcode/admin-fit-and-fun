@@ -52,7 +52,7 @@ onMounted(() => {
     >
       <VCardText class="pt-2">
         <h5 class="text-h5 mb-1">
-          Hasil Karya
+          Selamat datang!
         </h5>
         <p class="mb-0">
           Masuk ke akun anda

@@ -1,10 +1,9 @@
-
-
 <template>
   <li class="nav-link">
     <template v-if="!item.children">
       <Component
         :is="item.to ? 'RouterLink' : 'a'"
+        v-if="can(item.permission)"
         :to="item.to"
         :href="item.href"
         class="nav-item"
@@ -20,6 +19,7 @@
     
     <template v-else>
       <a
+        v-if="can(item.permission)"
         class="nav-item"
         @click="toggleSubItems"
       >
@@ -39,7 +39,7 @@
         class="nav-sub-items"
       >
         <VerticalNavLink
-          v-for="subItem in item.children"
+          v-for="subItem in filteredChildren"
           :key="subItem.title"
           :item="subItem"
         />
@@ -49,7 +49,8 @@
 </template>
 
 <script setup>
-import { defineProps, ref, watch } from 'vue'
+import { can } from '@/helpers/permissionHelper'
+import { defineProps, ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const props = defineProps({
@@ -66,7 +67,10 @@ const toggleSubItems = () => {
   isSubItemsOpen.value = !isSubItemsOpen.value
 }
 
-  
+const filteredChildren = computed(() => {
+  return props.item.children ? props.item.children.filter(subItem => can(subItem.permission)) : []
+})
+
 watch(
   () => route.path,
   () => {

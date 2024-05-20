@@ -1,42 +1,3 @@
-<script setup>
-import { useExampleStore } from '@/stores/example'
-import { storeToRefs } from 'pinia'
-import { onMounted, onUnmounted, ref } from 'vue'
-
-const { loading, error } = storeToRefs(useExampleStore())
-const { createExample } = useExampleStore()
-
-
-
-const code = ref('AUTO')
-const name = ref('')
-
-const handleReset = () => {
-  code.value = 'AUTO'
-  name.value = ''
-}
-
-const handleSubmit = () => {
-
-  createExample({
-    code: code.value,
-    name: name.value,
-  })
-
-}
-
-onMounted(() => {
-  document.title = 'Tambah Example'
-})
-
-onUnmounted(() => {
-  handleReset()
-
-  error.value = null
-})
-</script>
-
-
 <template>
   <VRow>
     <VCol
@@ -44,11 +5,11 @@ onUnmounted(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Example
+        Edit Permission
       </h2>
 
       <VBtn
-        to="/admin/example"
+        :to="{ name: 'permissions' }"
         color="primary"
       >
         Kembali
@@ -61,29 +22,18 @@ onUnmounted(() => {
           <VRow>
             <VCol
               cols="12"
-              md="6"
+              md="12"
             >
               <VTextField
-                v-model="code"
-                label="Kode"
-                placeholder="Kode Example"
-                :error-messages="error && error.code ? [error.code] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="6"
-            >
-              <VTextField
-                v-model="name"
+                v-model="permission.name"
                 label="Nama"
-                placeholder="Nama Example"
+                placeholder="Nama Permission"
                 :error-messages="error && error.name ? [error.name] : []"
+                :disabled="loading"
+                :loading="loading"
               />
             </VCol>
 
-           
             <VCol
               cols="12"
               class="d-flex gap-4"
@@ -97,6 +47,7 @@ onUnmounted(() => {
               </VBtn>
 
               <VBtn
+                type="reset"
                 color="secondary"
                 variant="tonal"
                 @click="handleReset"
@@ -110,6 +61,51 @@ onUnmounted(() => {
     </VCol>
   </VRow>
 </template>
+
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
+import { onMounted, onBeforeMount, ref } from 'vue'
+import { usePermissionStore } from '@/stores/permission'
+
+const route = useRoute()
+
+const { loading, error } = storeToRefs(usePermissionStore())
+const { fetchPermission, updatePermission } = usePermissionStore()
+
+const permissionId = route.params.id
+
+const permission = ref({
+  id: permissionId,
+  name: '',
+})
+
+const fetchPermissionData = async () => {
+  try {
+    const data = await fetchPermission(permissionId)
+
+    permission.value = {
+      id: data.id,
+      name: data.name,
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+onBeforeMount(() => {
+  document.title = 'Edit Permission'
+  fetchPermissionData()
+})
+
+const handleSubmit = () => {
+  updatePermission(permission.value)
+}
+
+const handleReset = () => {
+  fetchPermissionData()
+}
+</script>
 
 <style lang="scss">
 .v-row {
