@@ -1,35 +1,29 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
-import { useCoachStore } from '@/stores/coach'
+import { useGoalStore } from '@/stores/goal'
 
-const { loading, error } = storeToRefs(useCoachStore())
-const { createCoach } = useCoachStore()
+const { loading, error } = storeToRefs(useGoalStore())
+const { createGoal } = useGoalStore()
 
-const coach = ref({
+const goal = ref({
   name: '',
-  email: '',
-  password: '',
-  phone_number: '',
-  id_herbalife: '',
+  description: '',
 })
 
 const handleReset = () => {
-  coach.value = {
+  goal.value = {
     name: '',
-    email: '',
-    password: '',
-    phone_number: '',
-    id_herbalife: '',
+    description: '',
   }
 }
 
 const handleSubmit = () => {
-  createCoach(coach.value)
+  createGoal(goal.value)
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Coach'
+  document.title = 'Tambah Goal'
 
   handleReset()
   error.value = null
@@ -43,11 +37,11 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Coach
+        Tambah Goal
       </h2>
 
       <VBtn
-        :to="{ name: 'coachs' }"
+        :to="{ name: 'goals' }"
         color="primary"
       >
         Kembali
@@ -63,9 +57,9 @@ onBeforeMount(() => {
               md="12"
             >
               <VTextField
-                v-model="coach.name"
+                v-model="goal.name"
                 label="Nama"
-                placeholder="Nama Coach"
+                placeholder="Nama Goal"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -75,50 +69,13 @@ onBeforeMount(() => {
               md="12"
             >
               <VTextField
-                v-model="coach.email"
-                label="Email"
-                placeholder="Email Coach"
+                v-model="goal.description"
+                label="Description"
+                placeholder="Description Goal"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
 
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="coach.password"
-                label="Password"
-                placeholder="Password Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="coach.phone_number"
-                label="Phone Number"
-                placeholder="Nomor Telepon Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="coach.id_herbalife"
-                label="ID Herbalife"
-                placeholder="ID Herbalife Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-              />
-            </VCol>
-
-           
             <VCol
               cols="12"
               class="d-flex gap-4"

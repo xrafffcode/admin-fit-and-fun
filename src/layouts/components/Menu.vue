@@ -25,9 +25,23 @@ checkAuth()
       permission: 'user-management',
       children: [
         {
+          title: 'Admin',
+          to: '/app/admin',
+          permission: 'admin-list',
+        },{
           title: 'Coach',
           to: '/app/coach',
           permission: 'coach-list',
+        },
+        {
+          title: 'Member',
+          to: '/app/member',
+          permission: 'member-list',
+        },        
+        {
+          title: 'Goal',
+          to: '/app/goal',
+          permission: 'goal-list',
         },
         {
           title: 'Peran',
@@ -42,5 +56,4 @@ checkAuth()
       ],
     }"
   />
-  
 </template>

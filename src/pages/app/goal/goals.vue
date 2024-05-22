@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useCoachStore } from '@/stores/coach'
+import { useGoalStore } from '@/stores/goal'
 import { can } from '@/helpers/permissionHelper'
 
 const headers = [
@@ -9,16 +9,8 @@ const headers = [
     value: 'name',
   },
   {
-    text: 'Email',
-    value: 'user.email',
-  },
-  {
-    text: 'Nomor Handphone',
-    value: 'phone_number',
-  },
-  {
-    text: 'ID Herbalife',
-    value: 'id_herbalife',
+    text: 'Description',
+    value: 'description',
   },
   {
     text: 'Aksi',
@@ -27,24 +19,24 @@ const headers = [
   },
 ]
 
-const { coachs, loading, success } = storeToRefs(useCoachStore())
-const { fetchCoachs, deleteCoach } = useCoachStore()
+const { goals, loading, success } = storeToRefs(useGoalStore())
+const { fetchGoals, deleteGoal } = useGoalStore()
 
-fetchCoachs()
+fetchGoals()
 
-async function handleDeleteCoach(coach) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus coach ini?')
+async function handleDeleteGoal(goal) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus Goal ini?')
 
   if (confirmed) {
-    await deleteCoach(coach.id)
-    fetchCoachs()
+    await deleteGoal(goal.id)
+    fetchGoals()
   }
 }
 
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Coach'
+  document.title = 'List Goal'
 })
 </script>
 
@@ -76,23 +68,23 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Coach
+        List Goal
       </h2>
 
       <VBtn
-        v-if="can('coach-create')"
-        :to="{ name: 'coach-create' }"
+        v-if="can('goal-create')"
+        :to="{ name: 'goal-create' }"
         color="primary"
       >
-        Tambah Coach
+        Tambah Goal
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Coach"
-        placeholder="Cari Coach"
+        label="Cari Goal"
+        placeholder="Cari Goal"
         clearable
         :loading="loading"
         variant="solo"
@@ -103,7 +95,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="coachs"
+          :items="goals"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -112,8 +104,8 @@ onBeforeMount(() => {
         >
           <template #item-operation="item">
             <VBtn
-              v-if="can('coach-edit')"
-              :to="{ name: 'coach-edit', params: { id: item.id } }"
+              v-if="can('goal-edit')"
+              :to="{ name: 'goal-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -121,11 +113,11 @@ onBeforeMount(() => {
               Ubah
             </VBtn>
             <VBtn
-              v-if="can('coach-delete')"
+              v-if="can('goal-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteCoach(item)"
+              @click="() => handleDeleteGoal(item)"
             >
               Hapus
             </VBtn>

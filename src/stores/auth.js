@@ -3,7 +3,6 @@ import router from '@/router'
 import { defineStore } from 'pinia'
 import { handleError } from '@/helpers/errorHelper'
 
-
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
@@ -62,4 +61,3 @@ export const useAuthStore = defineStore({
     },
   },
 })
-

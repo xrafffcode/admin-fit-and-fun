@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useCoachStore } from '@/stores/coach'
+import { useAdminStore } from '@/stores/admin'
 import { can } from '@/helpers/permissionHelper'
 
 const headers = [
@@ -9,42 +9,30 @@ const headers = [
     value: 'name',
   },
   {
-    text: 'Email',
-    value: 'user.email',
-  },
-  {
-    text: 'Nomor Handphone',
-    value: 'phone_number',
-  },
-  {
-    text: 'ID Herbalife',
-    value: 'id_herbalife',
-  },
-  {
     text: 'Aksi',
     value: 'operation',
     width: 300,
   },
 ]
 
-const { coachs, loading, success } = storeToRefs(useCoachStore())
-const { fetchCoachs, deleteCoach } = useCoachStore()
+const { admins, loading, success } = storeToRefs(useAdminStore())
+const { fetchAdmins, deleteAdmins } = useAdminStore()
 
-fetchCoachs()
+fetchPermissions()
 
-async function handleDeleteCoach(coach) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus coach ini?')
+async function handleDeleteAdmin(permission) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus permission ini?')
 
   if (confirmed) {
-    await deleteCoach(coach.id)
-    fetchCoachs()
+    await deleteAdmin(permission.id)
+    fetchPermissions()
   }
 }
 
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Coach'
+  document.title = 'Admins'
 })
 </script>
 
@@ -76,23 +64,23 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Coach
+        Permissions
       </h2>
 
       <VBtn
-        v-if="can('coach-create')"
-        :to="{ name: 'coach-create' }"
+        v-if="can('permission-create')"
+        :to="{ name: 'permission-create' }"
         color="primary"
       >
-        Tambah Coach
+        Tambah Permission
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Coach"
-        placeholder="Cari Coach"
+        label="Cari Permission"
+        placeholder="Cari Permission"
         clearable
         :loading="loading"
         variant="solo"
@@ -103,7 +91,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="coachs"
+          :items="permissions"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -112,8 +100,8 @@ onBeforeMount(() => {
         >
           <template #item-operation="item">
             <VBtn
-              v-if="can('coach-edit')"
-              :to="{ name: 'coach-edit', params: { id: item.id } }"
+              v-if="can('permission-edit')"
+              :to="{ name: 'permission-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -121,11 +109,11 @@ onBeforeMount(() => {
               Ubah
             </VBtn>
             <VBtn
-              v-if="can('coach-delete')"
+              v-if="can('permission-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteCoach(item)"
+              @click="() => handleDeleteAdmin(item)"
             >
               Hapus
             </VBtn>

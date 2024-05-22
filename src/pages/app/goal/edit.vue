@@ -5,11 +5,11 @@
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Edit Coach
+        Edit Goal
       </h2>
 
       <VBtn
-        :to="{ name: 'coachs' }"
+        :to="{ name: 'goals' }"
         color="primary"
       >
         Kembali
@@ -25,9 +25,9 @@
               md="12"
             >
               <VTextField
-                v-model="coach.name"
+                v-model="goal.name"
                 label="Nama"
-                placeholder="Nama Coach"
+                placeholder="Nama Goal"
                 :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
@@ -39,45 +39,9 @@
               md="12"
             >
               <VTextField
-                v-model="coach.email"
-                label="Email"
-                placeholder="Email Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="coach.password"
-                label="Password"
-                placeholder="Password Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="coach.phone_number"
-                label="Phone Number"
-                placeholder="Nomor Telepon Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="coach.id_herbalife"
-                label="ID Herbalife"
-                placeholder="ID Herbalife Coach"
+                v-model="goal.description"
+                label="Description"
+                placeholder="Description Goal"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -114,34 +78,29 @@
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { onMounted, onBeforeMount, ref } from 'vue'
-import { useCoachStore } from '@/stores/coach'
+import { useGoalStore } from '@/stores/goal'
 
 const route = useRoute()
 
-const { loading, error } = storeToRefs(useCoachStore())
-const { fetchCoach, updateCoach } = useCoachStore()
+const { loading, error } = storeToRefs(useGoalStore())
+const { fetchGoal, updateGoal } = useGoalStore()
 
-const coachId = route.params.id
+const goalId = route.params.id
 
-const coach = ref({
-  id: coachId,
+const goal = ref({
+  id: goalId,
   name: '',
-  email: '',
-  password: '',
-  phone_number: '',
-  id_herbalife: '',
+  description: '',
 })
 
-const fetchCoachData = async () => {
+const fetchGoalData = async () => {
   try {
-    const data = await fetchCoach(coachId)
+    const data = await fetchGoal(goalId)
 
-    coach.value = {
+    goal.value = {
       id: data.id,
       name: data.name,
-      email: data.user.email,
-      phone_number: data.phone_number,
-      id_herbalife: data.id_herbalife,
+      description: data.description,
     }
   } catch (error) {
     console.error(error)
@@ -149,16 +108,16 @@ const fetchCoachData = async () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Edit Coach'
-  fetchCoachData()
+  document.title = 'Edit Goal'
+  fetchGoalData()
 })
 
 const handleSubmit = () => {
-  updateCoach(coach.value)
+  updateGoal(goal.value)
 }
 
 const handleReset = () => {
-  fetchCoachData()
+  fetchGoalData()
 }
 </script>
 

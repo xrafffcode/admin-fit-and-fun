@@ -3,33 +3,33 @@ import router from '@/router'
 import { defineStore } from 'pinia'
 import { handleError } from '@/helpers/errorHelper'
 
-export const useCoachStore = defineStore({
-  id: 'coach',
+export const useGoalStore = defineStore({
+  id: 'goal',
   state: () => ({
-    coachs: [],
+    goals: [],
     loading: false,
     error: null,
     success: null,
   }),
   actions: {
-    async fetchCoachs() {
+    async fetchGoals() {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get('/coach')
+        const response = await axiosInstance.get('/goal')
 
-        this.coachs = response.data.data
+        this.goals = response.data.data
       } catch (error) {
         this.handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async fetchCoach(id) {
+    async fetchGoal(id) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get(`/coach/${id}`)
+        const response = await axiosInstance.get(`/goal/${id}`)
 
         return response.data.data
       } catch (error) {
@@ -38,33 +38,33 @@ export const useCoachStore = defineStore({
         this.loading = false
       }
     },
-    async createCoach(payload) {
+    async createGoal(payload) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.post('/coach', payload)
+        const response = await axiosInstance.post('/goal', payload)
 
         this.success = response.data.message
 
-        router.push({ name: 'coachs' })
+        router.push({ name: 'goals' })
       } catch (error) {
         this.error = handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async updateCoach(payload) {
+    async updateGoal(payload) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.post(`/coach/${payload.id}`, {
+        const response = await axiosInstance.post(`/goal/${payload.id}`, {
           ...payload,
           _method: 'PUT',
         })
 
         this.success = response.data.message
 
-        router.push({ name: 'coachs' })
+        router.push({ name: 'goals' })
       } catch (error) {
         console.error(error)
         this.error = handleError(error)
@@ -72,11 +72,11 @@ export const useCoachStore = defineStore({
         this.loading = false
       }
     },
-    async deleteCoach(id) {
+    async deleteGoal(id) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.delete(`/coach/${id}`)
+        const response = await axiosInstance.delete(`/goal/${id}`)
 
         this.success = response.data.message
       } catch (error) {
