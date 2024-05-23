@@ -68,7 +68,7 @@ onBeforeMount(() => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VTextarea
                 v-model="goal.description"
                 label="Description"
                 placeholder="Description Goal"

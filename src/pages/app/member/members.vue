@@ -23,7 +23,6 @@ const headers = [
   {
     text: 'Coach',
     value: 'coach.name',
-    width: 300,
   },
   {
     text: 'Goal',

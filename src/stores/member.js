@@ -6,7 +6,7 @@ import { handleError } from '@/helpers/errorHelper'
 export const useMemberStore = defineStore({
   id: 'member',
   state: () => ({
-    coachs: [],
+    members: [],
     loading: false,
     error: null,
     success: null,

@@ -20,6 +20,33 @@ checkAuth()
 
   <VerticalNavLink
     :item="{
+      title: 'Program',
+      icon: 'bx-layer',
+      to: '/app/program',
+      permission: 'program-list',
+    }"
+  />
+
+  <VerticalNavLink
+    :item="{
+      title: 'Goal',
+      icon: 'bx-target-lock',
+      to: '/app/goal',
+      permission: 'goal-list',
+    }"
+  />
+
+  <VerticalNavLink
+    :item="{
+      title: 'Shake',
+      icon: 'bx-drink',
+      to: '/app/shake',
+      permission: 'shake-list',
+    }"
+  />
+
+  <VerticalNavLink
+    :item="{
       title: 'User Management',
       icon: 'bx-user',
       permission: 'user-management',
@@ -38,24 +65,9 @@ checkAuth()
           title: 'Member',
           to: '/app/member',
           permission: 'member-list',
-        },
+        }, 
         {
-          title: 'Program',
-          to: '/app/program',
-          permission: 'program-list',
-        },        
-        {
-          title: 'Goal',
-          to: '/app/goal',
-          permission: 'goal-list',
-        },
-        {
-          title: 'Shake',
-          to: '/app/shake',
-          permission: 'shake-list',
-        },
-        {
-          tittle: 'Attendance',
+          title: 'Attendance',
           to: '/app/attendance',
           permission: 'attendance-list',
         },
