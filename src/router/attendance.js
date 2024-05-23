@@ -20,4 +20,3 @@ const attendanceRoutes = [
 ]
     
 export default attendanceRoutes
-    

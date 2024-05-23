@@ -1,34 +1,34 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
-import { usePermissionStore } from '@/stores/permission'
+import { useAdminStore } from '@/stores/admin'
 
-const { loading, error } = storeToRefs(usePermissionStore())
-const { createPermission } = usePermissionStore()
+const { loading, error } = storeToRefs(useAdminStore())
+const { createAdmin } = useAdminStore()
 
-
-const permission = ref({
+const admin = ref({
   name: '',
+  email: '',
 })
 
 const handleReset = () => {
-  permission.value = {
+  admin.value = {
     name: '',
+    email: '',
   }
 }
 
 const handleSubmit = () => {
-  createPermission(permission.value)
+  createAdmin(admin.value)
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Permission'
+  document.title = 'Tambah Admin'
 
   handleReset()
   error.value = null
 })
 </script>
-
 
 <template>
   <VRow>
@@ -37,11 +37,11 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Permission
+        Tambah Admin
       </h2>
 
       <VBtn
-        :to="{ name: 'permissions' }"
+        :to="{ name: 'admins' }"
         color="primary"
       >
         Kembali
@@ -57,13 +57,36 @@ onBeforeMount(() => {
               md="12"
             >
               <VTextField
-                v-model="permission.name"
+                v-model="admin.name"
                 label="Nama"
-                placeholder="Nama Example"
+                placeholder="Nama Admin"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
 
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="admin.email"
+                label="Email"
+                placeholder="Email Admin"
+                :error-messages="error && error.email ? [error.email] : []"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="admin.password"
+                label="Password"
+                placeholder="Password Admin"
+                :error-messages="error && error.password ? [error.password] : []"
+              />
+            </VCol>
            
             <VCol
               cols="12"

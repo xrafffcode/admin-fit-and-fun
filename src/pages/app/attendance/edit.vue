@@ -1,3 +1,71 @@
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
+import { onBeforeMount, ref } from 'vue'
+import { useAttendanceStore } from '@/stores/attendance'
+import { useMemberStore } from '@/stores/member'
+import { useProgramStore } from '@/stores/program'
+import { useShakeStore } from '@/stores/shake'
+
+const route = useRoute()
+
+const { loading, error } = storeToRefs(useAttendanceStore())
+const { fetchAttendance, updateAttendance } = useAttendanceStore()
+
+const { members } = storeToRefs(useMemberStore())
+const { fetchMembers } = useMemberStore()
+
+const { programs } = storeToRefs(useProgramStore())
+const { fetchPrograms } = useProgramStore()
+
+const { shakes } = storeToRefs(useShakeStore())
+const { fetchShakes } = useShakeStore()
+
+const attendanceId = route.params.id
+
+const attendance = ref({
+  id: attendanceId,
+  member_id: '',
+  program_id: '',
+  shake_id: '', 
+  tea: '',
+  parking_ticket: '',
+})
+
+const fetchAttendanceData = async () => {
+  try {
+    const data = await fetchAttendance(attendanceId)
+
+    attendance.value = {
+      id: data.id,
+      member_id: data.member_id,
+      program_id: data.program_id,
+      shake_id: data.shake_id,
+      tea: data.tea,
+      parking_ticket: data.parking_ticket,
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+onBeforeMount(() => {
+  document.title = 'Edit Attendance'
+  fetchMembers()
+  fetchPrograms()
+  fetchShakes()
+  fetchAttendanceData()
+})
+
+const handleSubmit = () => {
+  updateAttendance(attendance.value)
+}
+
+const handleReset = () => {
+  fetchAttendanceData()
+}
+</script>
+
 <template>
   <VRow>
     <VCol
@@ -113,69 +181,6 @@
     </VCol>
   </VRow>
 </template>
-
-<script setup>
-import { storeToRefs } from 'pinia'
-import { useRoute } from 'vue-router'
-import { onBeforeMount, ref } from 'vue'
-import { formatDateToISO } from '@/@core/utils/formatters'
-import { useAttendanceStore } from '@/stores/attendance'
-import { useMemberStore } from '@/stores/member'
-import { useProgramStore } from '@/stores/program'
-import { useShakeStore } from '@/stores/shake'
-
-const route = useRoute()
-
-const { loading, error } = storeToRefs(useattendanceStore())
-const { fetchattendance, updateattendance } = useattendanceStore()
-
-const { members } = storeToRefs(useMemberStore())
-const { fetchMembers } = useMemberStore()
-
-const attendanceId = route.params.id
-
-const attendance = ref({
-  id: attendanceId,
-  member_id: '',
-  program_id: '',
-  shake_id: '', 
-  tea: '',
-  parking_ticket: '',
-})
-
-const fetchAttendanceData = async () => {
-  try {
-    const data = await fetchAttendance(attendanceId)
-
-    attendance.value = {
-      id: data.id,
-      member_id: data.member_id,
-      program_id: data.program_id,
-      shake_id: data.shake_id,
-      tea: data.tea,
-      parking_ticket: data.parking_ticket,
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-onBeforeMount(() => {
-  document.title = 'Edit Attendance'
-  fetchMembers()
-  fetchPrograms()
-  fetchShakes()
-  fetchAttendanceData()
-})
-
-const handleSubmit = () => {
-  updateAttendance(attendance.value)
-}
-
-const handleReset = () => {
-  fetchAttendanceData()
-}
-</script>
 
 <style lang="scss">
 .v-row {

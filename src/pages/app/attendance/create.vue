@@ -42,7 +42,9 @@ const handleSubmit = () => {
 
 onBeforeMount(() => {
   document.title = 'Tambah Attendance'
-  fetchAttendances()
+  fetchMembers()
+  fetchPrograms()
+  fetchShakes()
   handleReset()
   error.value = null
 })
@@ -74,10 +76,10 @@ onBeforeMount(() => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.member_id"
                 :items="members"
-                label="Member"
+                label="Pilih Member"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.member_id ? [error.member_id] : []"
@@ -88,10 +90,10 @@ onBeforeMount(() => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.program_id"
                 :items="programs"
-                label="Program"
+                label="Pilih Program"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.program_id ? [error.program_id] : []"
@@ -102,14 +104,13 @@ onBeforeMount(() => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.shake_id"
                 :items="shakes"
-                label="Time"
+                label="Pilih Shake"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.shake_id ? [error.shake_id] : []"
-                type="datetime-local"
               />
             </VCol>
 
@@ -117,10 +118,11 @@ onBeforeMount(() => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.tea"
-                label="Tea"
-                placeholder="Select Temperature"
+                :items="['Hot', 'Cold']"
+                label="Select Tea"
+                placehorder="Temperature"
                 :error-messages="error && error.tea ? [error.tea] : []"
               />
             </VCol>
@@ -131,6 +133,7 @@ onBeforeMount(() => {
             >
               <VAutocomplete
                 v-model="attendance.parking_ticket"
+                :items="['Yes', 'No']"
                 label="Select Parking Ticket"
                 placehorder="Parking Ticket"
                 :error-messages="error && error.parking_ticket ? [error.parking_ticket] : []"

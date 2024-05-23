@@ -36,7 +36,7 @@ async function handleDeleteAdmin(admin) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'Admins'
+  document.title = 'List Admin'
 })
 </script>
 
@@ -68,7 +68,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Admin
+        List Admin
       </h2>
 
       <VBtn
@@ -95,7 +95,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="permissions"
+          :items="admins"
           :loading="loading"
           :search-value="search"
           buttons-pagination

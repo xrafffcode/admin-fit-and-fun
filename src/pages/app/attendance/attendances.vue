@@ -2,23 +2,19 @@
 import { ref, onBeforeMount } from 'vue'
 import { useAttendanceStore } from '@/stores/attendance'
 import { can } from '@/helpers/permissionHelper'
-import { formatDateTime } from '@/@core/utils/formatters'
 
 const headers = [
   {
     text: 'Member',
     value: 'member.name',
-    width: 300,
   },
   {
     text: 'Program',
     value: 'program.name',
-    width: 300,
   },
   {
     text: 'Shake',
     value: 'shake.name',
-    width: 300,
   },
   {
     text: 'Tea',
@@ -52,7 +48,7 @@ async function handleDeleteAttendance(attendance) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Attendance'
+  document.title = 'Attendances'
 })
 </script>
 
@@ -84,7 +80,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Attendance
+        List Attendances
       </h2>
 
       <VBtn
@@ -118,9 +114,6 @@ onBeforeMount(() => {
           show-index
           class="data-table"
         >
-          <template #item-time="item">
-            {{ formatDateTime(item.time) }}
-          </template>
           <template #item-operation="item">
             <VBtn
               v-if="can('attendance-edit')"

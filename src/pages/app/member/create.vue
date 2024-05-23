@@ -40,7 +40,8 @@ const handleSubmit = () => {
 
 onBeforeMount(() => {
   document.title = 'Tambah Member'
-
+  fetchCoaches()
+  fetchGoals()
   handleReset()
   error.value = null
 })

@@ -1,3 +1,55 @@
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
+import { onBeforeMount, ref } from 'vue'
+import { useCoachStore } from '@/stores/coach'
+
+const route = useRoute()
+
+const { loading, error } = storeToRefs(useCoachStore())
+const { fetchCoach, updateCoach } = useCoachStore()
+
+const coachId = route.params.id
+
+const coach = ref({
+  id: coachId,
+  name: '',
+  email: '',
+  password: '',
+  phone_number: '',
+  id_herbalife: '',
+})
+
+const fetchCoachData = async () => {
+  try {
+    const data = await fetchCoach(coachId)
+
+    coach.value = {
+      id: data.id,
+      name: data.name,
+      email: data.user.email,
+      phone_number: data.phone_number,
+      id_herbalife: data.id_herbalife,
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+onBeforeMount(() => {
+  document.title = 'Edit Coach'
+  fetchCoachData()
+})
+
+const handleSubmit = () => {
+  updateCoach(coach.value)
+}
+
+const handleReset = () => {
+  fetchCoachData()
+}
+</script>
+
 <template>
   <VRow>
     <VCol
@@ -110,58 +162,6 @@
     </VCol>
   </VRow>
 </template>
-
-<script setup>
-import { storeToRefs } from 'pinia'
-import { useRoute } from 'vue-router'
-import { onMounted, onBeforeMount, ref } from 'vue'
-import { useCoachStore } from '@/stores/coach'
-
-const route = useRoute()
-
-const { loading, error } = storeToRefs(useCoachStore())
-const { fetchCoach, updateCoach } = useCoachStore()
-
-const coachId = route.params.id
-
-const coach = ref({
-  id: coachId,
-  name: '',
-  email: '',
-  password: '',
-  phone_number: '',
-  id_herbalife: '',
-})
-
-const fetchCoachData = async () => {
-  try {
-    const data = await fetchCoach(coachId)
-
-    coach.value = {
-      id: data.id,
-      name: data.name,
-      email: data.user.email,
-      phone_number: data.phone_number,
-      id_herbalife: data.id_herbalife,
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-onBeforeMount(() => {
-  document.title = 'Edit Coach'
-  fetchCoachData()
-})
-
-const handleSubmit = () => {
-  updateCoach(coach.value)
-}
-
-const handleReset = () => {
-  fetchCoachData()
-}
-</script>
 
 <style lang="scss">
 .v-row {
