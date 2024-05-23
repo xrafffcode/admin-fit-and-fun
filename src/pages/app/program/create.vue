@@ -124,7 +124,6 @@ onBeforeMount(() => {
                 :error-messages="error && error.permissions ? [error.permissions] : []"
               />
             </VCol>
-
            
             <VCol
               cols="12"
