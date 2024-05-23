@@ -1,42 +1,50 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useAdminStore } from '@/stores/admin'
+import { useProgramStore } from '@/stores/program'
 import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
     text: 'Nama',
     value: 'name',
-  },  
-  {
-    text: 'Email',
-    value: 'user.email',
   },
   {
-    text: 'Aksi',
-    value: 'operation',
+    text: 'Description',
+    value: 'description',
+  },
+  {
+    text: 'Time',
+    value: 'time',
+  },
+  {
+    text: 'Slot',
+    value: 'slot',
+  },
+  {
+    text: 'Coach',
+    value: 'coach.id',
     width: 300,
   },
 ]
 
-const { admins, loading, success } = storeToRefs(useAdminStore())
-const { fetchAdmins, deleteAdmin } = useAdminStore()
+const { programs, loading, success } = storeToRefs(useProgramStore())
+const { fetchPrograms, deleteProgram } = useProgramStore()
 
-fetchAdmins()
+fetchPrograms()
 
-async function handleDeleteAdmin(admin) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus admin ini?')
+async function handleDeleteProgram(program) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus program ini?')
 
   if (confirmed) {
-    await deleteAdmin(admin.id)
-    fetchAdmins()
+    await deleteProgram(program.id)
+    fetchPrograms()
   }
 }
 
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'Admins'
+  document.title = 'List Program'
 })
 </script>
 
@@ -68,23 +76,23 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Admin
+        List Program
       </h2>
 
       <VBtn
-        v-if="can('admin-create')"
-        :to="{ name: 'admin-create' }"
+        v-if="can('program-create')"
+        :to="{ name: 'program-create' }"
         color="primary"
       >
-        Tambah Admin
+        Tambah Program
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Admin"
-        placeholder="Cari Admin"
+        label="Cari Program"
+        placeholder="Cari Program"
         clearable
         :loading="loading"
         variant="solo"
@@ -95,7 +103,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="permissions"
+          :items="programs"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -104,8 +112,8 @@ onBeforeMount(() => {
         >
           <template #item-operation="item">
             <VBtn
-              v-if="can('admin-edit')"
-              :to="{ name: 'admin-edit', params: { id: item.id } }"
+              v-if="can('program-edit')"
+              :to="{ name: 'program-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -113,11 +121,11 @@ onBeforeMount(() => {
               Ubah
             </VBtn>
             <VBtn
-              v-if="can('admin-delete')"
+              v-if="can('program-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteAdmin(item)"
+              @click="() => handleDeleteProgram(item)"
             >
               Hapus
             </VBtn>

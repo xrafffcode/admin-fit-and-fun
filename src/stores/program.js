@@ -3,34 +3,34 @@ import router from '@/router'
 import { defineStore } from 'pinia'
 import { handleError } from '@/helpers/errorHelper'
 
-export const useRoleStore = defineStore({
-  id: 'role',
+export const useProgramStore = defineStore({
+  id: 'program',
   state: () => ({
-    roles: [],
+    programs: [],
     loading: false,
     error: null,
     success: null,
   }),
   actions: {
-    async fetchRoles() {
+    async fetchPrograms() {
       try {
         this.loading = true
-    
-        const response = await axiosInstance.get('/role')
-    
-        this.roles = response.data.data
+
+        const response = await axiosInstance.get('/program')
+
+        this.programs = response.data.data
       } catch (error) {
         this.handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async fetchRole(id) {
+    async fetchProgram(id) {
       try {
         this.loading = true
-    
-        const response = await axiosInstance.get(`/role/${id}`)
-    
+
+        const response = await axiosInstance.get(`/program/${id}`)
+
         return response.data.data
       } catch (error) {
         this.handleError(error)
@@ -38,48 +38,47 @@ export const useRoleStore = defineStore({
         this.loading = false
       }
     },
-    async createRole(payload) {
+    async createProgram(payload) {
       try {
         this.loading = true
-    
-        const response = await axiosInstance.post('/role', payload)
-    
+
+        const response = await axiosInstance.post('/program', payload)
+
         this.success = response.data.message
-    
-        router.push({ name: 'roles' })
+
+        router.push({ name: 'programs' })
       } catch (error) {
         this.error = handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async updateRole(payload) {
+    async updateProgram(payload) {
       try {
         this.loading = true
-    
-        const response = await axiosInstance.post(`/role/${payload.id}`, {
+
+        const response = await axiosInstance.post(`/program/${payload.id}`, {
           ...payload,
           _method: 'PUT',
         })
-    
+
         this.success = response.data.message
-    
-        router.push({ name: 'roles' })
+
+        router.push({ name: 'programs' })
       } catch (error) {
+        console.error(error)
         this.error = handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async deleteRole(id) {
+    async deleteProgram(id) {
       try {
         this.loading = true
-    
-        const response = await axiosInstance.delete(`/role/${id}`)
-    
+
+        const response = await axiosInstance.delete(`/program/${id}`)
+
         this.success = response.data.message
-    
-        this.fetchRoles()
       } catch (error) {
         this.error = handleError(error)
       } finally {

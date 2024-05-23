@@ -1,16 +1,13 @@
+
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useAdminStore } from '@/stores/admin'
+import { useShakeStore } from '@/stores/shake'
 import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
     text: 'Nama',
     value: 'name',
-  },  
-  {
-    text: 'Email',
-    value: 'user.email',
   },
   {
     text: 'Aksi',
@@ -19,24 +16,24 @@ const headers = [
   },
 ]
 
-const { admins, loading, success } = storeToRefs(useAdminStore())
-const { fetchAdmins, deleteAdmin } = useAdminStore()
+const { shakes, loading, success } = storeToRefs(useShakeStore())
+const { fetchShakes, deleteShake } = useShakeStore()
 
-fetchAdmins()
+fetchShakes()
 
-async function handleDeleteAdmin(admin) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus admin ini?')
+async function handleDeleteShake(shake) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus Shake ini?')
 
   if (confirmed) {
-    await deleteAdmin(admin.id)
-    fetchAdmins()
+    await deleteShake(shake.id)
+    fetchShakes()
   }
 }
 
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'Admins'
+  document.title = 'List Shake'
 })
 </script>
 
@@ -68,23 +65,23 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Admin
+        List Shake
       </h2>
 
       <VBtn
-        v-if="can('admin-create')"
-        :to="{ name: 'admin-create' }"
+        v-if="can('shake-create')"
+        :to="{ name: 'shake-create' }"
         color="primary"
       >
-        Tambah Admin
+        Tambah Shake
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Admin"
-        placeholder="Cari Admin"
+        label="Cari Shake"
+        placeholder="Cari Shake"
         clearable
         :loading="loading"
         variant="solo"
@@ -95,7 +92,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="permissions"
+          :items="shakes"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -104,8 +101,8 @@ onBeforeMount(() => {
         >
           <template #item-operation="item">
             <VBtn
-              v-if="can('admin-edit')"
-              :to="{ name: 'admin-edit', params: { id: item.id } }"
+              v-if="can('shake-edit')"
+              :to="{ name: 'shake-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -113,11 +110,11 @@ onBeforeMount(() => {
               Ubah
             </VBtn>
             <VBtn
-              v-if="can('admin-delete')"
+              v-if="can('shake-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteAdmin(item)"
+              @click="() => handleDeleteShake(item)"
             >
               Hapus
             </VBtn>

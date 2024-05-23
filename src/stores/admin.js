@@ -6,7 +6,7 @@ import { handleError } from '@/helpers/errorHelper'
 export const useAdminStore = defineStore({
   id: 'admin',
   state: () => ({
-    permissions: [],
+    admins: [],
     loading: false,
     error: null,
     success: null,
@@ -18,7 +18,7 @@ export const useAdminStore = defineStore({
 
         const response = await axiosInstance.get('/admin')
 
-        this.admin = response.data.data
+        this.admins = response.data.data
       } catch (error) {
         this.handleError(error)
       } finally {
@@ -57,7 +57,7 @@ export const useAdminStore = defineStore({
       try {
         this.loading = true
 
-        const response = await axiosInstance.put(`/admin/${payload.id}`, {
+        const response = await axiosInstance.post(`/admin/${payload.id}`, {
           ...payload,
           _method: 'PUT',
         })

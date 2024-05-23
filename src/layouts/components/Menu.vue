@@ -25,23 +25,34 @@ checkAuth()
       permission: 'user-management',
       children: [
         {
-          title: 'Admin',
-          to: '/app/admin',
-          permission: 'admin-list',
-        },{
           title: 'Coach',
           to: '/app/coach',
           permission: 'coach-list',
         },
         {
+          title: 'Admin',  
+          to: '/app/admin',
+          permission: 'admin-list',
+        },
+        {
           title: 'Member',
           to: '/app/member',
           permission: 'member-list',
+        },
+        {
+          title: 'Program',
+          to: '/app/program',
+          permission: 'program-list',
         },        
         {
           title: 'Goal',
           to: '/app/goal',
           permission: 'goal-list',
+        },
+        {
+          title: 'Shake',
+          to: '/app/shake',
+          permission: 'shake-list',
         },
         {
           title: 'Peran',

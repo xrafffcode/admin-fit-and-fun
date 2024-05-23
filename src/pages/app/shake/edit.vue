@@ -1,30 +1,30 @@
+
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { onMounted, onBeforeMount, ref } from 'vue'
-import { useGoalStore } from '@/stores/goal'
+import { useShakeStore } from '@/stores/shake'
 
 const route = useRoute()
 
-const { loading, error } = storeToRefs(useGoalStore())
-const { fetchGoal, updateGoal } = useGoalStore()
+const { loading, error } = storeToRefs(useShakeStore())
+const { fetchShake, updateShake } = useShakeStore()
 
-const goalId = route.params.id
+const shakeId = route.params.id
 
-const goal = ref({
-  id: goalId,
+const shake = ref({
+  id: shakeId,
   name: '',
   description: '',
 })
 
-const fetchGoalData = async () => {
+const fetchShakeData = async () => {
   try {
-    const data = await fetchGoal(goalId)
+    const data = await fetchShake(shakeId)
 
-    goal.value = {
+    shake.value = {
       id: data.id,
       name: data.name,
-      description: data.description,
     }
   } catch (error) {
     console.error(error)
@@ -32,16 +32,16 @@ const fetchGoalData = async () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Edit Goal'
-  fetchGoalData()
+  document.title = 'Edit Shake'
+  fetchShakeData()
 })
 
 const handleSubmit = () => {
-  updateGoal(goal.value)
+  updateShake(shake.value)
 }
 
 const handleReset = () => {
-  fetchGoalData()
+  fetchshakeData()
 }
 </script>
 
@@ -52,11 +52,11 @@ const handleReset = () => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Edit Goal
+        Edit Shake
       </h2>
 
       <VBtn
-        :to="{ name: 'goals' }"
+        :to="{ name: 'shakes' }"
         color="primary"
       >
         Kembali
@@ -72,24 +72,12 @@ const handleReset = () => {
               md="12"
             >
               <VTextField
-                v-model="goal.name"
+                v-model="shake.name"
                 label="Nama"
-                placeholder="Nama Goal"
+                placeholder="Nama Shake"
                 :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="goal.description"
-                label="Description"
-                placeholder="Description Goal"
-                :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
 

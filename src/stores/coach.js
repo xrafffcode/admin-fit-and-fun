@@ -6,19 +6,19 @@ import { handleError } from '@/helpers/errorHelper'
 export const useCoachStore = defineStore({
   id: 'coach',
   state: () => ({
-    coachs: [],
+    coaches: [],
     loading: false,
     error: null,
     success: null,
   }),
   actions: {
-    async fetchCoachs() {
+    async fetchCoaches() {
       try {
         this.loading = true
 
         const response = await axiosInstance.get('/coach')
 
-        this.coachs = response.data.data
+        this.coaches = response.data.data
       } catch (error) {
         this.handleError(error)
       } finally {
@@ -46,7 +46,7 @@ export const useCoachStore = defineStore({
 
         this.success = response.data.message
 
-        router.push({ name: 'coachs' })
+        router.push({ name: 'coaches' })
       } catch (error) {
         this.error = handleError(error)
       } finally {
@@ -64,7 +64,7 @@ export const useCoachStore = defineStore({
 
         this.success = response.data.message
 
-        router.push({ name: 'coachs' })
+        router.push({ name: 'coaches' })
       } catch (error) {
         console.error(error)
         this.error = handleError(error)
