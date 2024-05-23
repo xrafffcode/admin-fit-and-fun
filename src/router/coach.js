@@ -1,7 +1,7 @@
 const coachRoutes = [
   {
     path: 'coach',
-    component: () => import('@/pages/app/coach/coachs.vue'),
+    component: () => import('@/pages/app/coach/coaches.vue'),
     name: 'coaches',
     meta: { permission: 'coach-list' },
   },

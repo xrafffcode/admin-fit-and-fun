@@ -78,15 +78,19 @@ export const formatDate = (value,
   return new Intl.DateTimeFormat('id-ID', formatting).format(new Date(value))
 }
 
-export const formatDateTime = value => {
-  if (!value)
-    return value
-  
-  return new Intl.DateTimeFormat('id-ID', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  }).format(new Date(value))
+export function formatDateTime(dateString) {
+  const date = new Date(dateString)
+
+
+  const day = date.getDate()
+  const month = date.toLocaleString('id-ID', { month: 'long' })
+  const year = date.getFullYear()
+  const time = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+
+  return `${day} ${month} ${year}, ${time}`
 }
+
+export function formatDateToISO(dateString) {
+  return dateString.split('T')[0] + 'T' + dateString.split('T')[1].slice(0, 5)
+}
+

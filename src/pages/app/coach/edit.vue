@@ -9,7 +9,7 @@
       </h2>
 
       <VBtn
-        :to="{ name: 'coachs' }"
+        :to="{ name: 'coaches' }"
         color="primary"
       >
         Kembali
@@ -43,6 +43,7 @@
                 label="Email"
                 placeholder="Email Coach"
                 :error-messages="error && error.name ? [error.name] : []"
+                readonly="readonly"
               />
             </VCol>
 

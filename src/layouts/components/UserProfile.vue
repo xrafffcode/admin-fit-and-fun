@@ -38,6 +38,9 @@ checkAuth()
           <VListItemTitle class="font-weight-semibold">
             {{ user?.email }}
           </VListItemTitle>
+          <VListItemSubtitle v-if="user?.role === 'coach'">
+            ID Herbalife: {{ user?.id_herbalife }}
+          </VListItemSubtitle>
         </VListItem>
         <VDivider class="my-2" />
 

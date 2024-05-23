@@ -116,9 +116,9 @@ onBeforeMount(() => {
               md="12"
             >
               <VAutocomplete
-                v-model="program.coaches"
+                v-model="program.coach_id"
                 :items="coaches"
-                label="Coaches"
+                label="Pilih Coach"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.permissions ? [error.permissions] : []"

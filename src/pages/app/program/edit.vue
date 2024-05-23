@@ -5,11 +5,11 @@
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Edit Coach
+        Edit Program
       </h2>
 
       <VBtn
-        :to="{ name: 'coachs' }"
+        :to="{ name: 'programs' }"
         color="primary"
       >
         Kembali
@@ -25,23 +25,9 @@
               md="12"
             >
               <VTextField
-                v-model="coach.name"
+                v-model="program.name"
                 label="Nama"
-                placeholder="Nama Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-                :disabled="loading"
-                :loading="loading"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="coach.email"
-                label="Email"
-                placeholder="Email Coach"
+                placeholder="Nama Program"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -51,9 +37,9 @@
               md="12"
             >
               <VTextField
-                v-model="coach.password"
-                label="Password"
-                placeholder="Password Coach"
+                v-model="program.description"
+                label="Description"
+                placeholder="Description Program"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -63,10 +49,11 @@
               md="12"
             >
               <VTextField
-                v-model="coach.phone_number"
-                label="Phone Number"
-                placeholder="Nomor Telepon Coach"
+                v-model="program.time"
+                label="Time"
+                placeholder="Time Program"
                 :error-messages="error && error.name ? [error.name] : []"
+                type="datetime-local"
               />
             </VCol>
 
@@ -75,13 +62,27 @@
               md="12"
             >
               <VTextField
-                v-model="coach.id_herbalife"
-                label="ID Herbalife"
-                placeholder="ID Herbalife Coach"
+                v-model="program.slot"
+                label="Slot"
+                placeholder="Slot Program"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
 
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VAutocomplete
+                v-model="program.coach_id"
+                :items="coaches"
+                label="Pilih Coach"
+                item-title="name"
+                item-value="id"
+                :error-messages="error && error.permissions ? [error.permissions] : []"
+              />
+            </VCol>
+           
             <VCol
               cols="12"
               class="d-flex gap-4"
@@ -95,7 +96,6 @@
               </VBtn>
 
               <VBtn
-                type="reset"
                 color="secondary"
                 variant="tonal"
                 @click="handleReset"
@@ -113,35 +113,42 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
-import { onMounted, onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
+import { formatDateToISO } from '@/@core/utils/formatters'
+import { useProgramStore } from '@/stores/program'
 import { useCoachStore } from '@/stores/coach'
+
 
 const route = useRoute()
 
-const { loading, error } = storeToRefs(useCoachStore())
-const { fetchCoach, updateCoach } = useCoachStore()
+const { loading, error } = storeToRefs(useProgramStore())
+const { fetchProgram, updateProgram } = useProgramStore()
 
-const coachId = route.params.id
+const { coaches } = storeToRefs(useCoachStore())
+const { fetchCoaches } = useCoachStore()
 
-const coach = ref({
-  id: coachId,
+const programId = route.params.id
+
+const program = ref({
+  id: programId,
   name: '',
-  email: '',
-  password: '',
-  phone_number: '',
-  id_herbalife: '',
+  description: '',
+  time: '',
+  slot: '',
+  coach_id: '',
 })
 
-const fetchCoachData = async () => {
+const fetchProgramData = async () => {
   try {
-    const data = await fetchCoach(coachId)
+    const data = await fetchProgram(programId)
 
-    coach.value = {
+    program.value = {
       id: data.id,
       name: data.name,
-      email: data.user.email,
-      phone_number: data.phone_number,
-      id_herbalife: data.id_herbalife,
+      description: data.description,
+      time: formatDateToISO(data.time),
+      slot: data.slot,
+      coach_id: data.coach_id,
     }
   } catch (error) {
     console.error(error)
@@ -149,16 +156,17 @@ const fetchCoachData = async () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Edit Coach'
-  fetchCoachData()
+  document.title = 'Edit Program'
+  fetchCoaches()
+  fetchProgramData()
 })
 
 const handleSubmit = () => {
-  updateCoach(coach.value)
+  updateProgram(program.value)
 }
 
 const handleReset = () => {
-  fetchCoachData()
+  fetchProgramData()
 }
 </script>
 

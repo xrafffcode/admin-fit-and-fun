@@ -47,7 +47,7 @@ onBeforeMount(() => {
       </h2>
 
       <VBtn
-        :to="{ name: 'coachs' }"
+        :to="{ name: 'coaches' }"
         color="primary"
       >
         Kembali
@@ -78,7 +78,7 @@ onBeforeMount(() => {
                 v-model="coach.email"
                 label="Email"
                 placeholder="Email Coach"
-                :error-messages="error && error.name ? [error.name] : []"
+                :error-messages="error && error.email ? [error.email] : []"
               />
             </VCol>
 
@@ -90,7 +90,7 @@ onBeforeMount(() => {
                 v-model="coach.password"
                 label="Password"
                 placeholder="Password Coach"
-                :error-messages="error && error.name ? [error.name] : []"
+                :error-messages="error && error.password ? [error.password] : []"
               />
             </VCol>
 
@@ -102,7 +102,7 @@ onBeforeMount(() => {
                 v-model="coach.phone_number"
                 label="Phone Number"
                 placeholder="Nomor Telepon Coach"
-                :error-messages="error && error.name ? [error.name] : []"
+                :error-messages="error && error.phone_number ? [error.phone_number] : []"
               />
             </VCol>
 
@@ -114,7 +114,7 @@ onBeforeMount(() => {
                 v-model="coach.id_herbalife"
                 label="ID Herbalife"
                 placeholder="ID Herbalife Coach"
-                :error-messages="error && error.name ? [error.name] : []"
+                :error-messages="error && error.id_herbalife ? [error.id_herbalife] : []"
               />
             </VCol>
 

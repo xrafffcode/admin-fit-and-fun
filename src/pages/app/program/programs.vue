@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from 'vue'
 import { useProgramStore } from '@/stores/program'
 import { can } from '@/helpers/permissionHelper'
+import { formatDateTime } from '@/@core/utils/formatters'
 
 const headers = [
   {
@@ -22,8 +23,13 @@ const headers = [
   },
   {
     text: 'Coach',
-    value: 'coach.id',
+    value: 'coach.name',
     width: 300,
+  },
+  {
+    text: 'Aksi',
+    value: 'operation',
+    sortable: false,
   },
 ]
 
@@ -110,6 +116,9 @@ onBeforeMount(() => {
           show-index
           class="data-table"
         >
+          <template #item-time="item">
+            {{ formatDateTime(item.time) }}
+          </template>
           <template #item-operation="item">
             <VBtn
               v-if="can('program-edit')"
