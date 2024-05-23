@@ -1,60 +1,47 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useMemberStore } from '@/stores/member'
+import { useMembershipStore } from '@/stores/membership'
 import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
-    value: 'name',
-  },
-  {
-    text: 'Phone Number',
-    value: 'phone_number',
-  },
-  {
-    text: 'Weight',
-    value: 'weight',
-  },
-  {
-    text: 'Height',
-    value: 'height',
-  },
-  {
-    text: 'Coach',
-    value: 'coach.name',
+    text: 'Member',
+    value: 'member.name',
     width: 300,
   },
   {
-    text: 'Goal',
-    value: 'goal.name',
-    width: 300,
+    text: 'Type',
+    value: 'type',
+  },
+  {
+    text: 'Remaining Sessions',
+    value: 'remaining_sessions',
   },
   {
     text: 'Aksi',
     value: 'operation',
-    sortable: false,
+    width: 300,
   },
 ]
 
-const { members, loading, success } = storeToRefs(useMemberStore())
-const { fetchMembers, deleteMember } = useMemberStore()
+const { memberships, loading, success } = storeToRefs(useMembershipStore())
+const { fetchMemberships, deleteMembership } = useMembershipStore()
 
-fetchMembers()
+fetchMemberships()
 
-async function handleDeleteMember(member) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus member ini?')
+async function handleDeleteMembership(membership) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus membership ini?')
 
   if (confirmed) {
-    await deleteMember(member.id)
-    fetchMembers()
+    await deleteMembership(membership.id)
+    fetchMemberships()
   }
 }
 
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'Members'
+  document.title = 'List Membership'
 })
 </script>
 
@@ -86,23 +73,23 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Members
+        List Membership
       </h2>
 
       <VBtn
-        v-if="can('member-create')"
-        :to="{ name: 'member-create' }"
+        v-if="can('membership-create')"
+        :to="{ name: 'membership-create' }"
         color="primary"
       >
-        Tambah Member
+        Tambah Membership
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Member"
-        placeholder="Cari Member"
+        label="Cari Membership"
+        placeholder="Cari Membership"
         clearable
         :loading="loading"
         variant="solo"
@@ -113,7 +100,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="members"
+          :items="memberships"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -122,8 +109,8 @@ onBeforeMount(() => {
         >
           <template #item-operation="item">
             <VBtn
-              v-if="can('member-edit')"
-              :to="{ name: 'member-edit', params: { id: item.id } }"
+              v-if="can('membership-edit')"
+              :to="{ name: 'membership-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -131,11 +118,11 @@ onBeforeMount(() => {
               Ubah
             </VBtn>
             <VBtn
-              v-if="can('member-delete')"
+              v-if="can('membership-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteMember(item)"
+              @click="() => handleDeleteMembership(item)"
             >
               Hapus
             </VBtn>

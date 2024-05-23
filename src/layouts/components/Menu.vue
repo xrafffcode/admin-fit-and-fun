@@ -55,6 +55,11 @@ checkAuth()
           permission: 'shake-list',
         },
         {
+          tittle: 'Attendance',
+          to: '/app/attendance',
+          permission: 'attendance-list',
+        },
+        {
           title: 'Peran',
           to: '/app/role',
           permission: 'role-list',

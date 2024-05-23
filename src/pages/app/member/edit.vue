@@ -1,3 +1,68 @@
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
+import { onBeforeMount, ref } from 'vue'
+import { useMemberStore } from '@/stores/member'
+import { useCoachStore } from '@/stores/coach'
+import { useGoalStore } from '@/stores/goal'
+
+const route = useRoute()
+
+const { loading, error } = storeToRefs(useMemberStore())
+const { fetchMember, updateMember } = useMemberStore()
+
+const { coaches } = storeToRefs(useCoachStore())
+const { fetchCoaches } = useCoachStore()
+
+const { goals } = storeToRefs(useGoalStore())
+const { fetchGoals } = useGoalStore()
+
+const memberId = route.params.id
+
+const member = ref({
+  id: memberId,
+  name: '',
+  phone_number: '',
+  weight: '',
+  height: '',
+  coach_id: '',
+  goal_id: '',
+})
+
+const fetchMemberData = async () => {
+  try {
+    const data = await fetchMember(memberId)
+
+    permission.value = {
+      id: data.id,
+      name: data.name,
+      phone_number: data.phone_number,
+      weight: data.weight,
+      height: data.height,
+      coach_id: data.coach_id,
+      goal_id: data.goal_id,
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+onBeforeMount(() => {
+  document.title = 'Edit Member'
+  fetchMemberData()
+  fetchCoaches()
+  fetchGoals()
+})
+
+const handleSubmit = () => {
+  updateMember(member.value)
+}
+
+const handleReset = () => {
+  fetchMemberData()
+}
+</script>
+
 <template>
   <VRow>
     <VCol
@@ -5,11 +70,11 @@
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Edit Permission
+        Edit Member
       </h2>
 
       <VBtn
-        :to="{ name: 'permissions' }"
+        :to="{ name: 'members' }"
         color="primary"
       >
         Kembali
@@ -25,12 +90,82 @@
               md="12"
             >
               <VTextField
-                v-model="permission.name"
+                v-model="member.name"
                 label="Nama"
-                placeholder="Nama Permission"
+                placeholder="Nama Member"
                 :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="member.phone_number"
+                label="Phone Number"
+                placeholder="0812233456"
+                :error-messages="error && error.phone_number ? [error.phone_number] : []"
+                :disabled="loading"
+                :loading="loading"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="member.weight"
+                label="Weight"
+                placeholder="Masukkan angka saja"
+                :error-messages="error && error.weight ? [error.weight] : []"
+                :disabled="loading"
+                :loading="loading"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="member.height"
+                label="Height"
+                placeholder="Masukkan angka saja"
+                :error-messages="error && error.height ? [error.height] : []"
+                :disabled="loading"
+                :loading="loading"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VAutocomplete
+                v-model="member.coach_id"
+                :items="coaches"
+                label="Pilih Coach"
+                item-title="name"
+                item-value="id"
+                :error-messages="error && error.coach_id ? [error.coach_id] : []"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VAutocomplete
+                v-model="member.goal_id"
+                :items="goals"
+                label="Pilih Goal"
+                item-title="name"
+                item-value="id"
+                :error-messages="error && error.goal_id ? [error.goal_id] : []"
               />
             </VCol>
 
@@ -61,51 +196,6 @@
     </VCol>
   </VRow>
 </template>
-
-<script setup>
-import { storeToRefs } from 'pinia'
-import { useRoute } from 'vue-router'
-import { onMounted, onBeforeMount, ref } from 'vue'
-import { usePermissionStore } from '@/stores/permission'
-
-const route = useRoute()
-
-const { loading, error } = storeToRefs(usePermissionStore())
-const { fetchPermission, updatePermission } = usePermissionStore()
-
-const permissionId = route.params.id
-
-const permission = ref({
-  id: permissionId,
-  name: '',
-})
-
-const fetchPermissionData = async () => {
-  try {
-    const data = await fetchPermission(permissionId)
-
-    permission.value = {
-      id: data.id,
-      name: data.name,
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-onBeforeMount(() => {
-  document.title = 'Edit Permission'
-  fetchPermissionData()
-})
-
-const handleSubmit = () => {
-  updatePermission(permission.value)
-}
-
-const handleReset = () => {
-  fetchPermissionData()
-}
-</script>
 
 <style lang="scss">
 .v-row {

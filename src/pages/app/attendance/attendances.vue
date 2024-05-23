@@ -1,34 +1,32 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useMemberStore } from '@/stores/member'
+import { useAttendanceStore } from '@/stores/attendance'
 import { can } from '@/helpers/permissionHelper'
+import { formatDateTime } from '@/@core/utils/formatters'
 
 const headers = [
   {
-    text: 'Nama',
-    value: 'name',
-  },
-  {
-    text: 'Phone Number',
-    value: 'phone_number',
-  },
-  {
-    text: 'Weight',
-    value: 'weight',
-  },
-  {
-    text: 'Height',
-    value: 'height',
-  },
-  {
-    text: 'Coach',
-    value: 'coach.name',
+    text: 'Member',
+    value: 'member.name',
     width: 300,
   },
   {
-    text: 'Goal',
-    value: 'goal.name',
+    text: 'Program',
+    value: 'program.name',
     width: 300,
+  },
+  {
+    text: 'Shake',
+    value: 'shake.name',
+    width: 300,
+  },
+  {
+    text: 'Tea',
+    value: 'tea',
+  },
+  {
+    text: 'Parking Ticket',
+    value: 'parking_ticket',
   },
   {
     text: 'Aksi',
@@ -37,24 +35,24 @@ const headers = [
   },
 ]
 
-const { members, loading, success } = storeToRefs(useMemberStore())
-const { fetchMembers, deleteMember } = useMemberStore()
+const { attendances, loading, success } = storeToRefs(useAttendanceStore())
+const { fetchAttendances, deleteAttendance } = useAttendanceStore()
 
-fetchMembers()
+fetchAttendances()
 
-async function handleDeleteMember(member) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus member ini?')
+async function handleDeleteAttendance(attendance) {
+  const confirmed = confirm('Apakah Anda yakin ingin menghapus attendance ini?')
 
   if (confirmed) {
-    await deleteMember(member.id)
-    fetchMembers()
+    await deleteAttendance(attendance.id)
+    fetchAttendances()
   }
 }
 
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'Members'
+  document.title = 'List Attendance'
 })
 </script>
 
@@ -86,23 +84,23 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Members
+        List Attendance
       </h2>
 
       <VBtn
-        v-if="can('member-create')"
-        :to="{ name: 'member-create' }"
+        v-if="can('attendance-create')"
+        :to="{ name: 'attendance-create' }"
         color="primary"
       >
-        Tambah Member
+        Tambah Attendance
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Member"
-        placeholder="Cari Member"
+        label="Cari Attendance"
+        placeholder="Cari Attendance"
         clearable
         :loading="loading"
         variant="solo"
@@ -113,17 +111,20 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="members"
+          :items="attendances"
           :loading="loading"
           :search-value="search"
           buttons-pagination
           show-index
           class="data-table"
         >
+          <template #item-time="item">
+            {{ formatDateTime(item.time) }}
+          </template>
           <template #item-operation="item">
             <VBtn
-              v-if="can('member-edit')"
-              :to="{ name: 'member-edit', params: { id: item.id } }"
+              v-if="can('attendance-edit')"
+              :to="{ name: 'attendance-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -131,11 +132,11 @@ onBeforeMount(() => {
               Ubah
             </VBtn>
             <VBtn
-              v-if="can('member-delete')"
+              v-if="can('attendance-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteMember(item)"
+              @click="() => handleDeleteAttendance(item)"
             >
               Hapus
             </VBtn>

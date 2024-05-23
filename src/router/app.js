@@ -1,17 +1,21 @@
-import coachRoutes from "./coach"
 import adminRoutes from "./admin"
-import memberRoutes from "./member"
-import permissionRoutes from "./permission"
-import roleRoutes from "./role"
+import attendanceRoutes from "./attendance"
+import coachRoutes from "./coach"
 import goalRoutes from "./goal"
-import shakeRoutes from "./shake"
+import memberRoutes from "./member"
+import membershipRoutes from "./membership"
+import permissionRoutes from "./permission"
 import programRoutes from "./program"
+import roleRoutes from "./role"
+import shakeRoutes from "./shake"
 
 const appRoutes = [
+  ...adminRoutes,
+  ...attendanceRoutes,
+  ...membershipRoutes,
   ...permissionRoutes,
   ...roleRoutes,
   ...coachRoutes,
-  ...adminRoutes,
   ...memberRoutes,
   ...goalRoutes,
   ...shakeRoutes,

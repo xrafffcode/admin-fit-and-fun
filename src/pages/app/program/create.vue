@@ -82,7 +82,7 @@ onBeforeMount(() => {
                 v-model="program.description"
                 label="Description"
                 placeholder="Description Program"
-                :error-messages="error && error.name ? [error.name] : []"
+                :error-messages="error && error.description ? [error.description] : []"
               />
             </VCol>
 
@@ -94,7 +94,7 @@ onBeforeMount(() => {
                 v-model="program.time"
                 label="Time"
                 placeholder="Time Program"
-                :error-messages="error && error.name ? [error.name] : []"
+                :error-messages="error && error.time ? [error.time] : []"
                 type="datetime-local"
               />
             </VCol>
@@ -107,7 +107,7 @@ onBeforeMount(() => {
                 v-model="program.slot"
                 label="Slot"
                 placeholder="Slot Program"
-                :error-messages="error && error.name ? [error.name] : []"
+                :error-messages="error && error.slot ? [error.slot] : []"
               />
             </VCol>
 
@@ -121,7 +121,7 @@ onBeforeMount(() => {
                 label="Pilih Coach"
                 item-title="name"
                 item-value="id"
-                :error-messages="error && error.permissions ? [error.permissions] : []"
+                :error-messages="error && error.coach_id ? [error.coach_id] : []"
               />
             </VCol>
            
