@@ -27,17 +27,17 @@ const headers = [
   },
 ]
 
-const { coachs, loading, success } = storeToRefs(useCoachStore())
-const { fetchCoachs, deleteCoach } = useCoachStore()
+const { coaches, loading, success } = storeToRefs(useCoachStore())
+const { fetchCoaches, deleteCoach } = useCoachStore()
 
-fetchCoachs()
+fetchCoaches()
 
 async function handleDeleteCoach(coach) {
   const confirmed = confirm('Apakah Anda yakin ingin menghapus coach ini?')
 
   if (confirmed) {
     await deleteCoach(coach.id)
-    fetchCoachs()
+    fetchCoaches()
   }
 }
 
@@ -103,7 +103,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="coachs"
+          :items="coaches"
           :loading="loading"
           :search-value="search"
           buttons-pagination
