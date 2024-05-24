@@ -71,7 +71,7 @@ const handleReset = () => {
         :to="{ name: 'programs' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -85,8 +85,8 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="program.name"
-                label="Nama"
-                placeholder="Nama Program"
+                label="Name"
+                placeholder="Program Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -98,7 +98,7 @@ const handleReset = () => {
               <VTextarea
                 v-model="program.description"
                 label="Description"
-                placeholder="Description Program"
+                placeholder="Program Description"
                 :error-messages="error && error.description ? [error.description] : []"
               />
             </VCol>
@@ -109,8 +109,7 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="program.time"
-                label="Time"
-                placeholder="Time Program"
+                label="Date & Time"
                 :error-messages="error && error.time ? [error.time] : []"
                 type="datetime-local"
               />
@@ -122,8 +121,8 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="program.slot"
-                label="Slot"
-                placeholder="Slot Program"
+                label="Capacity Limit"
+                placeholder="Program Capacity Limit"
                 :error-messages="error && error.slot ? [error.slot] : []"
               />
             </VCol>
@@ -135,7 +134,7 @@ const handleReset = () => {
               <VAutocomplete
                 v-model="program.coach_id"
                 :items="coaches"
-                label="Pilih Coach"
+                label="Select Coach"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.coach_id ? [error.coach_id] : []"
@@ -151,7 +150,7 @@ const handleReset = () => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

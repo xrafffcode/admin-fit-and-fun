@@ -5,7 +5,7 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
+    text: 'Name',
     value: 'name',
   },
   {
@@ -27,10 +27,9 @@ const headers = [
   {
     text: 'Goal',
     value: 'goal.name',
-    width: 300,
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     sortable: false,
   },
@@ -42,8 +41,7 @@ const { fetchMembers, deleteMember } = useMemberStore()
 fetchMembers()
 
 async function handleDeleteMember(member) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus member ini?')
-
+  const confirmed = confirm('Delete this member?')
   if (confirmed) {
     await deleteMember(member.id)
     fetchMembers()
@@ -73,7 +71,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -85,7 +83,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Members
+        Members List
       </h2>
 
       <VBtn
@@ -93,15 +91,15 @@ onBeforeMount(() => {
         :to="{ name: 'member-create' }"
         color="primary"
       >
-        Tambah Member
+        Add Member
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Member"
-        placeholder="Cari Member"
+        label="Search Member"
+        placeholder="Search Member"
         clearable
         :loading="loading"
         variant="solo"
@@ -127,7 +125,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('member-delete')"
@@ -136,7 +134,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteMember(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

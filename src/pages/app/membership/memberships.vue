@@ -7,7 +7,6 @@ const headers = [
   {
     text: 'Member',
     value: 'member.name',
-    width: 300,
   },
   {
     text: 'Type',
@@ -18,7 +17,7 @@ const headers = [
     value: 'remaining_sessions',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     width: 300,
   },
@@ -30,8 +29,7 @@ const { fetchMemberships, deleteMembership } = useMembershipStore()
 fetchMemberships()
 
 async function handleDeleteMembership(membership) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus membership ini?')
-
+  const confirmed = confirm('Delete this membership?')
   if (confirmed) {
     await deleteMembership(membership.id)
     fetchMemberships()
@@ -41,7 +39,7 @@ async function handleDeleteMembership(membership) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Membership'
+  document.title = 'Memberships'
 })
 </script>
 
@@ -61,7 +59,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -73,7 +71,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Membership
+        Memberships List
       </h2>
 
       <VBtn
@@ -81,15 +79,15 @@ onBeforeMount(() => {
         :to="{ name: 'membership-create' }"
         color="primary"
       >
-        Tambah Membership
+        Add Membership
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Membership"
-        placeholder="Cari Membership"
+        label="Search Membership"
+        placeholder="Search Membership"
         clearable
         :loading="loading"
         variant="solo"
@@ -115,7 +113,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('membership-delete')"
@@ -124,7 +122,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteMembership(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

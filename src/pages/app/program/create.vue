@@ -33,7 +33,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Program'
+  document.title = 'Add Program'
   fetchCoaches()
   handleReset()
   error.value = null
@@ -47,14 +47,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Program
+        Add Program
       </h2>
 
       <VBtn
         :to="{ name: 'programs' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -68,8 +68,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="program.name"
-                label="Nama"
-                placeholder="Nama Program"
+                label="Name"
+                placeholder="Program Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -81,7 +81,7 @@ onBeforeMount(() => {
               <VTextarea
                 v-model="program.description"
                 label="Description"
-                placeholder="Description Program"
+                placeholder="Program Description"
                 :error-messages="error && error.description ? [error.description] : []"
               />
             </VCol>
@@ -92,8 +92,7 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="program.time"
-                label="Time"
-                placeholder="Time Program"
+                label="Date & Time"
                 :error-messages="error && error.time ? [error.time] : []"
                 type="datetime-local"
               />
@@ -105,8 +104,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="program.slot"
-                label="Slot"
-                placeholder="Slot Program"
+                label="Capacity Limit"
+                placeholder="Program Capacity Limit"
                 :error-messages="error && error.slot ? [error.slot] : []"
               />
             </VCol>
@@ -118,7 +117,7 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="program.coach_id"
                 :items="coaches"
-                label="Pilih Coach"
+                label="Select Coach"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.coach_id ? [error.coach_id] : []"
@@ -134,7 +133,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

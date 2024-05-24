@@ -41,7 +41,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Attendance'
+  document.title = 'Add Attendance'
   fetchMembers()
   fetchPrograms()
   fetchShakes()
@@ -57,14 +57,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Attendance
+        Add Attendance
       </h2>
 
       <VBtn
         :to="{ name: 'attendances' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -79,7 +79,7 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="attendance.member_id"
                 :items="members"
-                label="Pilih Member"
+                label="Select Member"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.member_id ? [error.member_id] : []"
@@ -93,7 +93,7 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="attendance.program_id"
                 :items="programs"
-                label="Pilih Program"
+                label="Select Program"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.program_id ? [error.program_id] : []"
@@ -107,7 +107,7 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="attendance.shake_id"
                 :items="shakes"
-                label="Pilih Shake"
+                label="Select Shake"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.shake_id ? [error.shake_id] : []"
@@ -122,7 +122,8 @@ onBeforeMount(() => {
                 v-model="attendance.tea"
                 :items="['Hot', 'Cold']"
                 label="Select Tea"
-                placehorder="Temperature"
+                item-title="name"
+                item-value="id"
                 :error-messages="error && error.tea ? [error.tea] : []"
               />
             </VCol>
@@ -135,7 +136,8 @@ onBeforeMount(() => {
                 v-model="attendance.parking_ticket"
                 :items="['Yes', 'No']"
                 label="Select Parking Ticket"
-                placehorder="Parking Ticket"
+                item-title="name"
+                item-value="id"
                 :error-messages="error && error.parking_ticket ? [error.parking_ticket] : []"
               />
             </VCol>
@@ -149,7 +151,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

@@ -27,7 +27,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Role'
+  document.title = 'Add Role'
   fetchPermissions()
   handleReset()
   error.value = null
@@ -42,14 +42,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Role
+        Add Role
       </h2>
 
       <VBtn
         :to="{ name: 'roles' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -63,8 +63,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="role.name"
-                label="Nama"
-                placeholder="Nama Example"
+                label="Name"
+                placeholder="Role Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -76,14 +76,13 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="role.permissions"
                 :items="permissions"
-                label="Permissions"
+                label="Choose Permissions"
                 multiple
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.permissions ? [error.permissions] : []"
               />
             </VCol>
-
            
             <VCol
               cols="12"
@@ -94,7 +93,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

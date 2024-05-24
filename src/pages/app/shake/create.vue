@@ -21,7 +21,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Shake'
+  document.title = 'Add Shake'
 
   handleReset()
   error.value = null
@@ -35,14 +35,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Shake
+        Add Shake
       </h2>
 
       <VBtn
         :to="{ name: 'shakes' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -56,8 +56,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="shake.name"
-                label="Nama"
-                placeholder="Nama shake"
+                label="Name"
+                placeholder="Shake Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -71,7 +71,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

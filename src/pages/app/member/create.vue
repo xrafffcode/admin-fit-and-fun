@@ -39,7 +39,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Member'
+  document.title = 'Add Member'
   fetchCoaches()
   fetchGoals()
   handleReset()
@@ -54,14 +54,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Member
+        Add Member
       </h2>
 
       <VBtn
         :to="{ name: 'members' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -75,8 +75,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="member.name"
-                label="Nama"
-                placeholder="Nama Member"
+                label="Name"
+                placeholder="Member Name"
                 :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
@@ -104,7 +104,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="member.weight"
                 label="Weight"
-                placeholder="Masukkan angka saja"
+                placeholder="Enter numbers only"
                 :error-messages="error && error.weight ? [error.weight] : []"
                 :disabled="loading"
                 :loading="loading"
@@ -118,7 +118,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="member.height"
                 label="Height"
-                placeholder="Masukkan angka saja"
+                placeholder="Enter numbers only"
                 :error-messages="error && error.height ? [error.height] : []"
                 :disabled="loading"
                 :loading="loading"
@@ -132,7 +132,7 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="member.coach_id"
                 :items="coaches"
-                label="Pilih Coach"
+                label="Select Coach"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.coach_id ? [error.coach_id] : []"
@@ -146,7 +146,7 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="member.goal_id"
                 :items="goals"
-                label="Pilih Goal"
+                label="Select Goal"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.goal_id ? [error.goal_id] : []"
@@ -162,7 +162,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

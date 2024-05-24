@@ -12,14 +12,14 @@ import shakeRoutes from "./shake"
 const appRoutes = [
   ...adminRoutes,
   ...attendanceRoutes,
+  ...coachRoutes,
+  ...goalRoutes,
+  ...memberRoutes,
   ...membershipRoutes,
   ...permissionRoutes,
-  ...roleRoutes,
-  ...coachRoutes,
-  ...memberRoutes,
-  ...goalRoutes,
-  ...shakeRoutes,
   ...programRoutes,
+  ...roleRoutes,
+  ...shakeRoutes,
 ]
 
 export default appRoutes

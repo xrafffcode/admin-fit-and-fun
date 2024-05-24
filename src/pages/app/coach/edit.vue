@@ -64,7 +64,7 @@ const handleReset = () => {
         :to="{ name: 'coaches' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -78,11 +78,9 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="coach.name"
-                label="Nama"
-                placeholder="Nama Coach"
+                label="Name"
+                placeholder="Coach Name"
                 :error-messages="error && error.name ? [error.name] : []"
-                :disabled="loading"
-                :loading="loading"
               />
             </VCol>
 
@@ -93,9 +91,8 @@ const handleReset = () => {
               <VTextField
                 v-model="coach.email"
                 label="Email"
-                placeholder="Email Coach"
-                :error-messages="error && error.name ? [error.name] : []"
-                readonly="readonly"
+                placeholder="Coach Email"
+                :error-messages="error && error.email ? [error.email] : []"
               />
             </VCol>
 
@@ -106,8 +103,8 @@ const handleReset = () => {
               <VTextField
                 v-model="coach.password"
                 label="Password"
-                placeholder="Password Coach"
-                :error-messages="error && error.name ? [error.name] : []"
+                placeholder="Coach Password"
+                :error-messages="error && error.password ? [error.password] : []"
               />
             </VCol>
 
@@ -118,8 +115,8 @@ const handleReset = () => {
               <VTextField
                 v-model="coach.phone_number"
                 label="Phone Number"
-                placeholder="Nomor Telepon Coach"
-                :error-messages="error && error.name ? [error.name] : []"
+                placeholder="0812345678"
+                :error-messages="error && error.phone_number ? [error.phone_number] : []"
               />
             </VCol>
 
@@ -130,8 +127,8 @@ const handleReset = () => {
               <VTextField
                 v-model="coach.id_herbalife"
                 label="ID Herbalife"
-                placeholder="ID Herbalife Coach"
-                :error-messages="error && error.name ? [error.name] : []"
+                placeholder="Coach ID Herbalife"
+                :error-messages="error && error.id_herbalife ? [error.id_herbalife] : []"
               />
             </VCol>
 
@@ -144,7 +141,7 @@ const handleReset = () => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

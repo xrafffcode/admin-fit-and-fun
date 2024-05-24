@@ -5,15 +5,15 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
+    text: 'Name',
     value: 'name',
   },
   {
-    text: 'Hak Akses',
+    text: 'Permissions',
     value: 'permissions',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     width: 300,
   },
@@ -25,8 +25,7 @@ const { fetchRoles, deleteRole } = useRoleStore()
 fetchRoles()
 
 async function handleDeleteRole(role) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus role ini?')
-
+  const confirmed = confirm('Delete this role?')
   if (confirmed) {
     await deleteRole(role.id)
     fetchRoles()
@@ -56,7 +55,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -68,7 +67,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Roles
+        Roles List
       </h2>
 
       <VBtn
@@ -76,15 +75,15 @@ onBeforeMount(() => {
         :to="{ name: 'role-create' }"
         color="primary"
       >
-        Tambah Role
+        Add Role
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari role"
-        placeholder="Cari role"
+        label="Search role"
+        placeholder="Search role"
         clearable
         :loading="loading"
         variant="solo"
@@ -104,10 +103,10 @@ onBeforeMount(() => {
         >
           <template #item-permissions="item">
             <span v-if="item.permissions.length === 0">
-              Tidak ada hak akses
+              No Permissions Available
             </span>
             <span v-else>
-              {{ item.permissions.length }} Hak Akses
+              {{ item.permissions.length }} Permissions
             </span>
           </template>
           <template #item-operation="item">
@@ -118,7 +117,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('role-delete')"
@@ -127,7 +126,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteRole(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

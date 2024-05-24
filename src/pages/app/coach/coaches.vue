@@ -5,7 +5,7 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
+    text: 'Name',
     value: 'name',
   },
   {
@@ -13,7 +13,7 @@ const headers = [
     value: 'user.email',
   },
   {
-    text: 'Nomor Handphone',
+    text: 'Phone Number',
     value: 'phone_number',
   },
   {
@@ -21,7 +21,7 @@ const headers = [
     value: 'id_herbalife',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     width: 300,
   },
@@ -33,8 +33,7 @@ const { fetchCoaches, deleteCoach } = useCoachStore()
 fetchCoaches()
 
 async function handleDeleteCoach(coach) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus coach ini?')
-
+  const confirmed = confirm('Delete this coach?')
   if (confirmed) {
     await deleteCoach(coach.id)
     fetchCoaches()
@@ -44,7 +43,7 @@ async function handleDeleteCoach(coach) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Coach'
+  document.title = 'Coaches'
 })
 </script>
 
@@ -64,7 +63,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -76,7 +75,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Coach
+        Coaches List
       </h2>
 
       <VBtn
@@ -84,15 +83,15 @@ onBeforeMount(() => {
         :to="{ name: 'coach-create' }"
         color="primary"
       >
-        Tambah Coach
+        Add Coach
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Coach"
-        placeholder="Cari Coach"
+        label="Search Coach"
+        placeholder="Search Coach"
         clearable
         :loading="loading"
         variant="solo"
@@ -118,7 +117,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('coach-delete')"
@@ -127,7 +126,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteCoach(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

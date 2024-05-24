@@ -14,20 +14,19 @@ const headers = [
     value: 'description',
   },
   {
-    text: 'Time',
+    text: 'Date & Time',
     value: 'time',
   },
   {
-    text: 'Slot',
+    text: 'Capacity Limit',
     value: 'slot',
   },
   {
     text: 'Coach',
     value: 'coach.name',
-    width: 300,
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     sortable: false,
   },
@@ -39,8 +38,7 @@ const { fetchPrograms, deleteProgram } = useProgramStore()
 fetchPrograms()
 
 async function handleDeleteProgram(program) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus program ini?')
-
+  const confirmed = confirm('Delete this program?')
   if (confirmed) {
     await deleteProgram(program.id)
     fetchPrograms()
@@ -50,7 +48,7 @@ async function handleDeleteProgram(program) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Program'
+  document.title = 'Programs'
 })
 </script>
 
@@ -70,7 +68,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -82,7 +80,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Program
+        Programs List
       </h2>
 
       <VBtn
@@ -90,15 +88,15 @@ onBeforeMount(() => {
         :to="{ name: 'program-create' }"
         color="primary"
       >
-        Tambah Program
+        Add Program
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Program"
-        placeholder="Cari Program"
+        label="Search Program"
+        placeholder="Search Program"
         clearable
         :loading="loading"
         variant="solo"
@@ -127,7 +125,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('program-delete')"
@@ -136,7 +134,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteProgram(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

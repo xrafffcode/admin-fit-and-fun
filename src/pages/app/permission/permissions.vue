@@ -5,11 +5,11 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
+    text: 'Name',
     value: 'name',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     width: 300,
   },
@@ -21,8 +21,7 @@ const { fetchPermissions, deletePermission } = usePermissionStore()
 fetchPermissions()
 
 async function handleDeletePermission(permission) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus permission ini?')
-
+  const confirmed = confirm('Delete this permission?')
   if (confirmed) {
     await deletePermission(permission.id)
     fetchPermissions()
@@ -52,7 +51,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -64,7 +63,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Permissions
+        Permissions List
       </h2>
 
       <VBtn
@@ -72,15 +71,15 @@ onBeforeMount(() => {
         :to="{ name: 'permission-create' }"
         color="primary"
       >
-        Tambah Permission
+        Add Permission
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Permission"
-        placeholder="Cari Permission"
+        label="Search Permission"
+        placeholder="Search Permission"
         clearable
         :loading="loading"
         variant="solo"
@@ -106,7 +105,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('permission-delete')"
@@ -115,7 +114,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeletePermission(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

@@ -23,7 +23,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Goal'
+  document.title = 'Add Goal'
 
   handleReset()
   error.value = null
@@ -37,14 +37,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Goal
+        Add Goal
       </h2>
 
       <VBtn
         :to="{ name: 'goals' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -58,8 +58,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="goal.name"
-                label="Nama"
-                placeholder="Nama Goal"
+                label="Name"
+                placeholder="Goal Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -71,7 +71,7 @@ onBeforeMount(() => {
               <VTextarea
                 v-model="goal.description"
                 label="Description"
-                placeholder="Description Goal"
+                placeholder="Goal Description"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -85,7 +85,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

@@ -25,7 +25,7 @@ const headers = [
     value: 'parking_ticket',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     sortable: false,
   },
@@ -37,8 +37,7 @@ const { fetchAttendances, deleteAttendance } = useAttendanceStore()
 fetchAttendances()
 
 async function handleDeleteAttendance(attendance) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus attendance ini?')
-
+  const confirmed = confirm('Delete this attendance?')
   if (confirmed) {
     await deleteAttendance(attendance.id)
     fetchAttendances()
@@ -68,7 +67,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -80,7 +79,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Attendances
+        Attendances List
       </h2>
 
       <VBtn
@@ -88,15 +87,15 @@ onBeforeMount(() => {
         :to="{ name: 'attendance-create' }"
         color="primary"
       >
-        Tambah Attendance
+        Add Attendance
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Attendance"
-        placeholder="Cari Attendance"
+        label="Search Attendance"
+        placeholder="Search Attendance"
         clearable
         :loading="loading"
         variant="solo"
@@ -122,7 +121,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('attendance-delete')"
@@ -131,7 +130,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteAttendance(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

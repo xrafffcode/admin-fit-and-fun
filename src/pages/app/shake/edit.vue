@@ -59,7 +59,7 @@ const handleReset = () => {
         :to="{ name: 'shakes' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -73,8 +73,8 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="shake.name"
-                label="Nama"
-                placeholder="Nama Shake"
+                label="Name"
+                placeholder="Shake Name"
                 :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
@@ -90,7 +90,7 @@ const handleReset = () => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

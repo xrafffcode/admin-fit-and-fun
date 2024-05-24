@@ -59,7 +59,7 @@ const handleReset = () => {
         :to="{ name: 'goals' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -73,8 +73,8 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="goal.name"
-                label="Nama"
-                placeholder="Nama Goal"
+                label="Name"
+                placeholder="Goal Name"
                 :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
@@ -88,7 +88,7 @@ const handleReset = () => {
               <VTextarea
                 v-model="goal.description"
                 label="Description"
-                placeholder="Description Goal"
+                placeholder="Goal Description"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -102,7 +102,7 @@ const handleReset = () => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

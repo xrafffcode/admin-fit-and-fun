@@ -66,7 +66,7 @@ const handleReset = () => {
         :to="{ name: 'memberships' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -81,7 +81,7 @@ const handleReset = () => {
               <VAutocomplete
                 v-model="membership.member_id"
                 :items="members"
-                label="Pilih member"
+                label="Select Member"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.member_id ? [error.member_id] : []"
@@ -95,7 +95,7 @@ const handleReset = () => {
               <VTextField
                 v-model="membership.type"
                 label="Type"
-                placeholder="Type Membership"
+                placeholder="Type"
                 :error-messages="error && error.type ? [error.type] : []"
               />
             </VCol>
@@ -107,7 +107,7 @@ const handleReset = () => {
               <VTextField
                 v-model="membership.remaining_sessions"
                 label="Remaining Sessions"
-                placeholder="Remaining Sessions Membership"
+                placeholder="Sessions"
                 :error-messages="error && error.remaining_sessions ? [error.remaining_sessions] : []"
               />
             </VCol>
@@ -121,7 +121,7 @@ const handleReset = () => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

@@ -5,7 +5,7 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
+    text: 'Name',
     value: 'name',
   },
   {
@@ -13,7 +13,7 @@ const headers = [
     value: 'description',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     width: 300,
   },
@@ -25,8 +25,7 @@ const { fetchGoals, deleteGoal } = useGoalStore()
 fetchGoals()
 
 async function handleDeleteGoal(goal) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus Goal ini?')
-
+  const confirmed = confirm('Delete this goal?')
   if (confirmed) {
     await deleteGoal(goal.id)
     fetchGoals()
@@ -36,7 +35,7 @@ async function handleDeleteGoal(goal) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Goal'
+  document.title = 'Goals'
 })
 </script>
 
@@ -56,7 +55,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -68,7 +67,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Goal
+        Goals List
       </h2>
 
       <VBtn
@@ -76,15 +75,15 @@ onBeforeMount(() => {
         :to="{ name: 'goal-create' }"
         color="primary"
       >
-        Tambah Goal
+        Add Goal
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Goal"
-        placeholder="Cari Goal"
+        label="Search Goal"
+        placeholder="Search Goal"
         clearable
         :loading="loading"
         variant="solo"
@@ -110,7 +109,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('goal-delete')"
@@ -119,7 +118,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteGoal(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

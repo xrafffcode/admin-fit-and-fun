@@ -6,11 +6,11 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
+    text: 'Name',
     value: 'name',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     width: 300,
   },
@@ -22,7 +22,7 @@ const { fetchShakes, deleteShake } = useShakeStore()
 fetchShakes()
 
 async function handleDeleteShake(shake) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus Shake ini?')
+  const confirmed = confirm('Delete this shake?')
 
   if (confirmed) {
     await deleteShake(shake.id)
@@ -33,7 +33,7 @@ async function handleDeleteShake(shake) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Shake'
+  document.title = 'Shakes'
 })
 </script>
 
@@ -53,7 +53,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -65,7 +65,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Shake
+        Shakes List
       </h2>
 
       <VBtn
@@ -73,7 +73,7 @@ onBeforeMount(() => {
         :to="{ name: 'shake-create' }"
         color="primary"
       >
-        Tambah Shake
+        Add Shake
       </VBtn>
     </VCol>
 
@@ -107,7 +107,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('shake-delete')"
@@ -116,7 +116,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteShake(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

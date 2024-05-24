@@ -29,8 +29,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Coach'
-
+  document.title = 'Add Coach'
   handleReset()
   error.value = null
 })
@@ -43,14 +42,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Coach
+        Add Coach
       </h2>
 
       <VBtn
         :to="{ name: 'coaches' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -64,8 +63,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="coach.name"
-                label="Nama"
-                placeholder="Nama Coach"
+                label="Name"
+                placeholder="Coach Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -77,7 +76,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="coach.email"
                 label="Email"
-                placeholder="Email Coach"
+                placeholder="Coach Email"
                 :error-messages="error && error.email ? [error.email] : []"
               />
             </VCol>
@@ -89,7 +88,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="coach.password"
                 label="Password"
-                placeholder="Password Coach"
+                placeholder="Coach Password"
                 :error-messages="error && error.password ? [error.password] : []"
               />
             </VCol>
@@ -101,7 +100,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="coach.phone_number"
                 label="Phone Number"
-                placeholder="Nomor Telepon Coach"
+                placeholder="0812345678"
                 :error-messages="error && error.phone_number ? [error.phone_number] : []"
               />
             </VCol>
@@ -113,11 +112,10 @@ onBeforeMount(() => {
               <VTextField
                 v-model="coach.id_herbalife"
                 label="ID Herbalife"
-                placeholder="ID Herbalife Coach"
+                placeholder="Coach ID Herbalife"
                 :error-messages="error && error.id_herbalife ? [error.id_herbalife] : []"
               />
             </VCol>
-
            
             <VCol
               cols="12"
@@ -128,7 +126,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

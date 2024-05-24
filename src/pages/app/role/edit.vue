@@ -1,84 +1,3 @@
-<template>
-  <VRow>
-    <VCol
-      cols="12"
-      class="d-flex justify-space-between align-items-center"
-    >
-      <h2 class="mb-0">
-        Edit Role
-      </h2>
-
-      <VBtn
-        :to="{ name: 'roles' }"
-        color="primary"
-      >
-        Kembali
-      </VBtn>
-    </VCol>
-
-    <VCol cols="12">
-      <VCard>
-        <VForm @submit.prevent="handleSubmit">
-          <VRow>
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="role.name"
-                label="Nama"
-                placeholder="Nama role"
-                :error-messages="error && error.name ? [error.name] : []"
-                :disabled="loading"
-                :loading="loading"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VAutocomplete
-                v-model="role.permissions"
-                :items="permissions"
-                label="Permissions"
-                multiple
-                item-title="name"
-                item-value="id"
-                :error-messages="error && error.permissions ? [error.permissions] : []"
-                :disabled="loading"
-                :loading="loading"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              class="d-flex gap-4"
-            >
-              <VBtn
-                type="submit"
-                :loading="loading"
-                color="primary"
-              >
-                Simpan
-              </VBtn>
-
-              <VBtn
-                type="reset"
-                color="secondary"
-                variant="tonal"
-                @click="handleReset"
-              >
-                Reset
-              </VBtn>
-            </VCol>
-          </VRow>
-        </VForm>
-      </VCard>
-    </VCol>
-  </VRow>
-</template>
-
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
@@ -130,6 +49,83 @@ const handleReset = () => {
   fetchRoleData()
 }
 </script>
+
+<template>
+  <VRow>
+    <VCol
+      cols="12"
+      class="d-flex justify-space-between align-items-center"
+    >
+      <h2 class="mb-0">
+        Edit Role
+      </h2>
+
+      <VBtn
+        :to="{ name: 'roles' }"
+        color="primary"
+      >
+        Back
+      </VBtn>
+    </VCol>
+
+    <VCol cols="12">
+      <VCard>
+        <VForm @submit.prevent="handleSubmit">
+          <VRow>
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="role.name"
+                label="Name"
+                placeholder="Role Name"
+                :error-messages="error && error.name ? [error.name] : []"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VAutocomplete
+                v-model="role.permissions"
+                :items="permissions"
+                label="Choose Permissions"
+                multiple
+                item-title="name"
+                item-value="id"
+                :error-messages="error && error.permissions ? [error.permissions] : []"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              class="d-flex gap-4"
+            >
+              <VBtn
+                type="submit"
+                :loading="loading"
+                color="primary"
+              >
+                Save
+              </VBtn>
+
+              <VBtn
+                type="reset"
+                color="secondary"
+                variant="tonal"
+                @click="handleReset"
+              >
+                Reset
+              </VBtn>
+            </VCol>
+          </VRow>
+        </VForm>
+      </VCard>
+    </VCol>
+  </VRow>
+</template>
 
 <style lang="scss">
 .v-row {

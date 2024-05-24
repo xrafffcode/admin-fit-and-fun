@@ -80,7 +80,7 @@ const handleReset = () => {
         :to="{ name: 'attendances' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -92,10 +92,10 @@ const handleReset = () => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.member_id"
                 :items="members"
-                label="Member"
+                label="Select Member"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.member_id ? [error.member_id] : []"
@@ -106,10 +106,10 @@ const handleReset = () => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.program_id"
                 :items="programs"
-                label="Program"
+                label="Select Program"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.program_id ? [error.program_id] : []"
@@ -120,14 +120,13 @@ const handleReset = () => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.shake_id"
                 :items="shakes"
-                label="Time"
+                label="Select Shake"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.shake_id ? [error.shake_id] : []"
-                type="datetime-local"
               />
             </VCol>
 
@@ -135,10 +134,12 @@ const handleReset = () => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="attendance.tea"
-                label="Tea"
-                placeholder="Select Temperature"
+                :items="['Hot', 'Cold']"
+                label="Select Tea"
+                item-title="name"
+                item-value="id"
                 :error-messages="error && error.tea ? [error.tea] : []"
               />
             </VCol>
@@ -149,12 +150,14 @@ const handleReset = () => {
             >
               <VAutocomplete
                 v-model="attendance.parking_ticket"
+                :items="['Yes', 'No']"
                 label="Select Parking Ticket"
-                placehorder="Parking Ticket"
+                item-title="name"
+                item-value="id"
                 :error-messages="error && error.parking_ticket ? [error.parking_ticket] : []"
               />
             </VCol>
-           
+
             <VCol
               cols="12"
               class="d-flex gap-4"
@@ -164,7 +167,7 @@ const handleReset = () => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

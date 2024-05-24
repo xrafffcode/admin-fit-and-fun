@@ -47,6 +47,24 @@ checkAuth()
 
   <VerticalNavLink
     :item="{
+      title: 'Attendance',
+      icon: 'bx-check-square',
+      to: '/app/attendance',
+      permission: 'attendance-list',
+    }"
+  />
+
+  <VerticalNavLink
+    :item="{
+      title: 'Membership',
+      icon: 'bx-id-card',
+      to: '/app/membership',
+      permission: 'membership-list',
+    }"
+  />
+
+  <VerticalNavLink
+    :item="{
       title: 'User Management',
       icon: 'bx-user',
       permission: 'user-management',
@@ -67,17 +85,12 @@ checkAuth()
           permission: 'member-list',
         }, 
         {
-          title: 'Attendance',
-          to: '/app/attendance',
-          permission: 'attendance-list',
-        },
-        {
-          title: 'Peran',
+          title: 'Role',
           to: '/app/role',
           permission: 'role-list',
         },
         {
-          title: 'Hak Akses',
+          title: 'Permission',
           to: '/app/permission',
           permission: 'permission-list',
         },

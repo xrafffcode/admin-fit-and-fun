@@ -22,7 +22,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Permission'
+  document.title = 'Permissions'
 
   handleReset()
   error.value = null
@@ -37,14 +37,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Permission
+        Add Permission
       </h2>
 
       <VBtn
         :to="{ name: 'permissions' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -58,8 +58,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="permission.name"
-                label="Nama"
-                placeholder="Nama Example"
+                label="Name"
+                placeholder="Permission Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -74,7 +74,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn
