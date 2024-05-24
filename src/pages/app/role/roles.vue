@@ -82,8 +82,8 @@ onBeforeMount(() => {
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Search role"
-        placeholder="Search role"
+        label="Search Role"
+        placeholder="Search Role"
         clearable
         :loading="loading"
         variant="solo"

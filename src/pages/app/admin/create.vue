@@ -23,7 +23,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Tambah Admin'
+  document.title = 'Add Admin'
 
   handleReset()
   error.value = null
@@ -37,14 +37,14 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Tambah Admin
+        Add Admin
       </h2>
 
       <VBtn
         :to="{ name: 'admins' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -58,8 +58,8 @@ onBeforeMount(() => {
             >
               <VTextField
                 v-model="admin.name"
-                label="Nama"
-                placeholder="Nama Admin"
+                label="Name"
+                placeholder="Admin Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -71,7 +71,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="admin.email"
                 label="Email"
-                placeholder="Email Admin"
+                placeholder="Admin Email"
                 :error-messages="error && error.email ? [error.email] : []"
               />
             </VCol>
@@ -83,7 +83,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="admin.password"
                 label="Password"
-                placeholder="Password Admin"
+                placeholder="Admin Password"
                 :error-messages="error && error.password ? [error.password] : []"
               />
             </VCol>
@@ -97,7 +97,7 @@ onBeforeMount(() => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn

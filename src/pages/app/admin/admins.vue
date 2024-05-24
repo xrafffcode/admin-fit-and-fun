@@ -5,7 +5,7 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
-    text: 'Nama',
+    text: 'Name',
     value: 'name',
   },  
   {
@@ -13,7 +13,7 @@ const headers = [
     value: 'user.email',
   },
   {
-    text: 'Aksi',
+    text: 'Action',
     value: 'operation',
     width: 300,
   },
@@ -25,7 +25,7 @@ const { fetchAdmins, deleteAdmin } = useAdminStore()
 fetchAdmins()
 
 async function handleDeleteAdmin(admin) {
-  const confirmed = confirm('Apakah Anda yakin ingin menghapus admin ini?')
+  const confirmed = confirm('Delete this admin?')
 
   if (confirmed) {
     await deleteAdmin(admin.id)
@@ -36,7 +36,7 @@ async function handleDeleteAdmin(admin) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'List Admin'
+  document.title = 'Admins'
 })
 </script>
 
@@ -56,7 +56,7 @@ onBeforeMount(() => {
           text
           @click="() => (success = null)"
         >
-          Tutup
+          Close
         </VBtn>
       </VCardActions>
     </VCard>
@@ -68,7 +68,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        List Admin
+        Admins List
       </h2>
 
       <VBtn
@@ -76,15 +76,15 @@ onBeforeMount(() => {
         :to="{ name: 'admin-create' }"
         color="primary"
       >
-        Tambah Admin
+        Add Admin
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Admin"
-        placeholder="Cari Admin"
+        label="Search Admin"
+        placeholder="Search Admin"
         clearable
         :loading="loading"
         variant="solo"
@@ -110,7 +110,7 @@ onBeforeMount(() => {
               size="small"
               class="m-5"
             >
-              Ubah
+              Edit
             </VBtn>
             <VBtn
               v-if="can('admin-delete')"
@@ -119,7 +119,7 @@ onBeforeMount(() => {
               class="m-5"
               @click="() => handleDeleteAdmin(item)"
             >
-              Hapus
+              Delete
             </VBtn>
           </template>
         </EasyDataTable>

@@ -61,7 +61,7 @@ const handleReset = () => {
         :to="{ name: 'admins' }"
         color="primary"
       >
-        Kembali
+        Back
       </VBtn>
     </VCol>
 
@@ -75,11 +75,9 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="admin.name"
-                label="Nama"
-                placeholder="Nama Admin"
+                label="Name"
+                placeholder="Admin Name"
                 :error-messages="error && error.name ? [error.name] : []"
-                :disabled="loading"
-                :loading="loading"
               />
             </VCol>
 
@@ -90,9 +88,8 @@ const handleReset = () => {
               <VTextField
                 v-model="admin.email"
                 label="Email"
-                placeholder="Email Admin"
-                :error-messages="error && error.name ? [error.name] : []"
-                readonly="readonly"
+                placeholder="Admin Email"
+                :error-messages="error && error.email ? [error.email] : []"
               />
             </VCol>
 
@@ -103,11 +100,11 @@ const handleReset = () => {
               <VTextField
                 v-model="admin.password"
                 label="Password"
-                placeholder="Password Admin"
-                :error-messages="error && error.name ? [error.name] : []"
+                placeholder="Admin Password"
+                :error-messages="error && error.password ? [error.password] : []"
               />
             </VCol>
-
+           
             <VCol
               cols="12"
               class="d-flex gap-4"
@@ -117,7 +114,7 @@ const handleReset = () => {
                 :loading="loading"
                 color="primary"
               >
-                Simpan
+                Save
               </VBtn>
 
               <VBtn
