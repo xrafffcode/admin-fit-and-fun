@@ -2,18 +2,29 @@
 import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
 import { useShakeStore } from '@/stores/shake'
+import { handleFileChange } from '@/helpers/fileHelper'
 
 const { loading, error } = storeToRefs(useShakeStore())
 const { createShake } = useShakeStore()
 
 const shake = ref({
+  image: null,
+  imageName: '',
   name: '',
+  description: '',
 })
 
 const handleReset = () => {
   shake.value = {
+    image: null,
+    imageName: '',
     name: '',
+    description: '',
   }
+}
+
+const onFileChange = e => {
+  handleFileChange(e, shake.value, 'image')
 }
 
 const handleSubmit = () => {
@@ -52,13 +63,35 @@ onBeforeMount(() => {
           <VRow>
             <VCol
               cols="12"
-              md="12"
+              md="6"
+            >
+              <VFileInput
+                v-model="shake.imageName"
+                label="Image"
+                placeholder="Choose Image"
+                :error-messages="error && error.image ? [error.image] : []"
+                @change="onFileChange"
+              />
+            </VCol>
+            
+            <VCol
+              cols="12"
+              md="6"
             >
               <VTextField
                 v-model="shake.name"
                 label="Name"
                 placeholder="Shake Name"
                 :error-messages="error && error.name ? [error.name] : []"
+              />
+            </VCol>
+
+            <VCol cols="12">
+              <VTextarea
+                v-model="shake.description"
+                label="Description"
+                placeholder="Shake Description"
+                :error-messages="error && error.description ? [error.description] : []"
               />
             </VCol>
 

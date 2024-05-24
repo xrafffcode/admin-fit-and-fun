@@ -25,8 +25,11 @@ const handleReset = () => {
 }
 
 const handleSubmit = () => {
+  membership.value.remaining_sessions = membership.value.type
+  
   createMembership(membership.value)
 }
+
 
 onBeforeMount(() => {
   document.title = 'Add Membership'
@@ -76,23 +79,12 @@ onBeforeMount(() => {
               cols="12"
               md="12"
             >
-              <VTextField
+              <VAutocomplete
                 v-model="membership.type"
-                label="Type"
-                placeholder="Type"
+                :items="['10', '30']"
+                :item-title="item => item"
+                label="Select Type"
                 :error-messages="error && error.type ? [error.type] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="membership.remaining_sessions"
-                label="Remaining Sessions"
-                placeholder="Sessions"
-                :error-messages="error && error.remaining_sessions ? [error.remaining_sessions] : []"
               />
             </VCol>
 

@@ -6,8 +6,16 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
+    text: 'Image',
+    value: 'image',
+  },
+  {
     text: 'Name',
     value: 'name',
+  },
+  {
+    text: 'Description',
+    value: 'description',
   },
   {
     text: 'Action',
@@ -80,8 +88,8 @@ onBeforeMount(() => {
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Cari Shake"
-        placeholder="Cari Shake"
+        label="Search Shake"
+        placeholder="Search Shake"
         clearable
         :loading="loading"
         variant="solo"
@@ -99,6 +107,14 @@ onBeforeMount(() => {
           show-index
           class="data-table"
         >
+          <template #item-image="item">
+            <VImg
+              :src="item.image_url"
+              width="100"
+              height="100"
+              contain
+            />
+          </template>
           <template #item-operation="item">
             <VBtn
               v-if="can('shake-edit')"

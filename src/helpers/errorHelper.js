@@ -5,6 +5,8 @@ export function handleError(error) {
     return error.response.data.message
   } else if (error.response && error.response.status === 400) {
     return error.response.data.message
+  }  else if (error.response && error.response.status === 404) {
+    return error.response.data.message
   } else {
     alert('Something went wrong. Please try again later.')
   }

@@ -1,10 +1,13 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 import { useAttendanceStore } from '@/stores/attendance'
 import { useMemberStore } from '@/stores/member'
 import { useProgramStore } from '@/stores/program'
 import { useShakeStore } from '@/stores/shake'
+
+const { user } = useAuthStore()
 
 const { loading, error } = storeToRefs(useAttendanceStore())
 const { createAttendance } = useAttendanceStore()
@@ -47,6 +50,10 @@ onBeforeMount(() => {
   fetchShakes()
   handleReset()
   error.value = null
+
+  if (user?.role === 'member') {
+    attendance.value.member_id = user?.member_id
+  }
 })
 </script>
 
@@ -69,6 +76,15 @@ onBeforeMount(() => {
     </VCol>
 
     <VCol cols="12">
+      <VAlert
+        v-if="error"
+        type="error"
+        dismissible
+        class="mb-4"
+      >
+        {{ error }}  
+      </VAlert>
+
       <VCard>
         <VForm @submit.prevent="handleSubmit">
           <VRow>
@@ -77,6 +93,7 @@ onBeforeMount(() => {
               md="12"
             >
               <VAutocomplete
+                v-if="user?.role !== 'member'"
                 v-model="attendance.member_id"
                 :items="members"
                 label="Select Member"
@@ -94,7 +111,7 @@ onBeforeMount(() => {
                 v-model="attendance.program_id"
                 :items="programs"
                 label="Select Program"
-                item-title="name"
+                item-title="title"
                 item-value="id"
                 :error-messages="error && error.program_id ? [error.program_id] : []"
               />

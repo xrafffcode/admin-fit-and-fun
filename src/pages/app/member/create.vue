@@ -15,6 +15,8 @@ const { goals } = storeToRefs(useGoalStore())
 const { fetchGoals } = useGoalStore()
 
 const member = ref({
+  email: '',
+  password: '',
   name: '',
   phone_number: '',
   weight: '',
@@ -25,6 +27,8 @@ const member = ref({
 
 const handleReset = () => {
   member.value = {
+    email: '',
+    password: '',
     name: '',
     phone_number: '',
     weight: '',
@@ -71,7 +75,35 @@ onBeforeMount(() => {
           <VRow>
             <VCol
               cols="12"
-              md="12"
+              md="6"
+            >
+              <VTextField
+                v-model="member.email"
+                label="Email"
+                placeholder="Email"
+                :error-messages="error && error.email ? [error.email] : []"
+                :disabled="loading"
+                :loading="loading"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="member.password"
+                label="Password"
+                placeholder="Password"
+                :error-messages="error && error.password ? [error.password] : []"
+                :disabled="loading"
+                :loading="loading"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
             >
               <VTextField
                 v-model="member.name"
@@ -85,7 +117,7 @@ onBeforeMount(() => {
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
               <VTextField
                 v-model="member.phone_number"
@@ -99,7 +131,7 @@ onBeforeMount(() => {
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
               <VTextField
                 v-model="member.weight"
@@ -113,7 +145,7 @@ onBeforeMount(() => {
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
               <VTextField
                 v-model="member.height"
@@ -127,7 +159,7 @@ onBeforeMount(() => {
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
               <VAutocomplete
                 v-model="member.coach_id"
@@ -141,7 +173,7 @@ onBeforeMount(() => {
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
               <VAutocomplete
                 v-model="member.goal_id"

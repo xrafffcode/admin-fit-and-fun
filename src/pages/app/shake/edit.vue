@@ -2,8 +2,9 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
-import { onMounted, onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useShakeStore } from '@/stores/shake'
+import { handleFileChange } from '@/helpers/fileHelper'
 
 const route = useRoute()
 
@@ -14,6 +15,9 @@ const shakeId = route.params.id
 
 const shake = ref({
   id: shakeId,
+  image: null,
+  image_name: '',
+  image_url: '',
   name: '',
   description: '',
 })
@@ -22,10 +26,9 @@ const fetchShakeData = async () => {
   try {
     const data = await fetchShake(shakeId)
 
-    shake.value = {
-      id: data.id,
-      name: data.name,
-    }
+    shake.value = data
+    shake.value.image = null
+    shake.value.image_name = ''
   } catch (error) {
     console.error(error)
   }
@@ -38,6 +41,12 @@ onBeforeMount(() => {
 
 const handleSubmit = () => {
   updateShake(shake.value)
+}
+
+const onFileChange = e => {
+  handleFileChange(e, shake.value, 'image')
+
+  shake.value.image_url = URL.createObjectURL(e.target.files[0])
 }
 
 const handleReset = () => {
@@ -71,13 +80,46 @@ const handleReset = () => {
               cols="12"
               md="12"
             >
+              <VImg
+                v-if="shake.image_url"
+                :src="shake.image_url"
+                width="100"
+                height="100"
+                alt="Shake Image"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VFileInput
+                v-model="shake.image_name"
+                label="Image"
+                placeholder="Choose Image"
+                :error-messages="error && error.image ? [error.image] : []"
+                @change="onFileChange"
+              />
+            </VCol>
+            
+            <VCol
+              cols="12"
+              md="6"
+            >
               <VTextField
                 v-model="shake.name"
                 label="Name"
                 placeholder="Shake Name"
                 :error-messages="error && error.name ? [error.name] : []"
-                :disabled="loading"
-                :loading="loading"
+              />
+            </VCol>
+
+            <VCol cols="12">
+              <VTextarea
+                v-model="shake.description"
+                label="Description"
+                placeholder="Shake Description"
+                :error-messages="error && error.description ? [error.description] : []"
               />
             </VCol>
 
@@ -94,7 +136,6 @@ const handleReset = () => {
               </VBtn>
 
               <VBtn
-                type="reset"
                 color="secondary"
                 variant="tonal"
                 @click="handleReset"
