@@ -28,7 +28,7 @@ const fetchRoleData = async () => {
     role.value = {
       id: data.id,
       name: data.name,
-      permissions: data.permissions.map(permission => permission.id),
+      permissions: data.permissions.map(permission => permission.name),
     }
   } catch (error) {
     console.error(error)
@@ -94,7 +94,7 @@ const handleReset = () => {
                 label="Choose Permissions"
                 multiple
                 item-title="name"
-                item-value="id"
+                item-value="name"
                 :error-messages="error && error.permissions ? [error.permissions] : []"
               />
             </VCol>
