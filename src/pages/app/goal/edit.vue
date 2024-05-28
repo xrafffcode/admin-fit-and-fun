@@ -32,7 +32,7 @@ const fetchGoalData = async () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Edit Goal'
+  document.title = 'Edit Program'
   fetchGoalData()
 })
 
@@ -52,7 +52,7 @@ const handleReset = () => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Edit Goal
+        Edit Program
       </h2>
 
       <VBtn
@@ -74,7 +74,7 @@ const handleReset = () => {
               <VTextField
                 v-model="goal.name"
                 label="Name"
-                placeholder="Goal Name"
+                placeholder="Program Name"
                 :error-messages="error && error.name ? [error.name] : []"
                 :disabled="loading"
                 :loading="loading"
@@ -88,7 +88,7 @@ const handleReset = () => {
               <VTextarea
                 v-model="goal.description"
                 label="Description"
-                placeholder="Goal Description"
+                placeholder="Program Description"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>

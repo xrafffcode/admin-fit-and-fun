@@ -42,7 +42,7 @@ const { fetchPrograms, deleteProgram } = useProgramStore()
 fetchPrograms()
 
 async function handleDeleteProgram(program) {
-  const confirmed = confirm('Delete this program?')
+  const confirmed = confirm('Delete this exercise?')
   if (confirmed) {
     await deleteProgram(program.id)
     fetchPrograms()
@@ -52,7 +52,7 @@ async function handleDeleteProgram(program) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'Programs'
+  document.title = 'Exercises'
 })
 </script>
 
@@ -84,7 +84,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Programs List
+        Exercises List
       </h2>
 
       <VBtn
@@ -92,15 +92,15 @@ onBeforeMount(() => {
         :to="{ name: 'program-create' }"
         color="primary"
       >
-        Add Program
+        Add Exercise
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Search Program"
-        placeholder="Search Program"
+        label="Search Exercise"
+        placeholder="Search Exercise"
         clearable
         :loading="loading"
         variant="solo"

@@ -35,7 +35,7 @@ async function handleDeleteGoal(goal) {
 const search = ref('')
 
 onBeforeMount(() => {
-  document.title = 'Goals'
+  document.title = 'Programs'
 })
 </script>
 
@@ -67,7 +67,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Goals List
+        Programs List
       </h2>
 
       <VBtn
@@ -75,15 +75,15 @@ onBeforeMount(() => {
         :to="{ name: 'goal-create' }"
         color="primary"
       >
-        Add Goal
+        Add Program
       </VBtn>
     </VCol>
 
     <VCol cols="12">
       <VTextField
         v-model="search"
-        label="Search Goal"
-        placeholder="Search Goal"
+        label="Search Program"
+        placeholder="Search Program"
         clearable
         :loading="loading"
         variant="solo"

@@ -20,18 +20,18 @@ checkAuth()
 
   <VerticalNavLink
     :item="{
-      title: 'Program',
+      title: 'Exercise',
       icon: 'bx-layer',
-      to: '/app/program',
+      to: '/app/exercise',
       permission: 'program-list',
     }"
   />
 
   <VerticalNavLink
     :item="{
-      title: 'Goal',
+      title: 'Program',
       icon: 'bx-target-lock',
-      to: '/app/goal',
+      to: '/app/program',
       permission: 'goal-list',
     }"
   />

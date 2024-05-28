@@ -42,7 +42,7 @@ const handleSubmit = () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Add Program'
+  document.title = 'Add Exercise'
   fetchCoaches()
   handleReset()
   error.value = null
@@ -56,7 +56,7 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Add Program
+        Add Exercise
       </h2>
 
       <VBtn
@@ -91,7 +91,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="program.name"
                 label="Name"
-                placeholder="Program Name"
+                placeholder="Exercise Name"
                 :error-messages="error && error.name ? [error.name] : []"
               />
             </VCol>
@@ -103,7 +103,7 @@ onBeforeMount(() => {
               <VTextarea
                 v-model="program.description"
                 label="Description"
-                placeholder="Program Description"
+                placeholder="Exercise Description"
                 :error-messages="error && error.description ? [error.description] : []"
               />
             </VCol>
@@ -127,7 +127,7 @@ onBeforeMount(() => {
               <VTextField
                 v-model="program.slot"
                 label="Capacity Limit"
-                placeholder="Program Capacity Limit"
+                placeholder="Exercise Capacity Limit"
                 :error-messages="error && error.slot ? [error.slot] : []"
               />
             </VCol>

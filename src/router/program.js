@@ -1,18 +1,18 @@
 const programRoutes = [
   {
-    path: 'program',
+    path: 'exercise',
     component: () => import('@/pages/app/program/programs.vue'),
     name: 'programs',
     meta: { permission: 'program-list' },
   },
   {
-    path: 'program/create',
+    path: 'exercise/create',
     component: () => import('@/pages/app/program/create.vue'),
     name: 'program-create',
     meta: { permission: 'program-create' },
   },
   {
-    path: 'program/:id/edit',
+    path: 'exercise/:id/edit',
     component: () => import('@/pages/app/program/edit.vue'),
     name: 'program-edit',
     meta: { permission: 'program-edit' },
