@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
 import { useProgramStore } from '@/stores/program'
 import { useCoachStore } from '@/stores/coach'
+import { handleFileChange } from '@/helpers/fileHelper'
 
 const { loading, error } = storeToRefs(useProgramStore())
 const { createProgram } = useProgramStore()
@@ -11,6 +12,8 @@ const { coaches } = storeToRefs(useCoachStore())
 const { fetchCoaches } = useCoachStore()
 
 const program = ref({
+  image: null,
+  imageName: '',
   name: '',
   description: '',
   time: '',
@@ -20,12 +23,18 @@ const program = ref({
 
 const handleReset = () => {
   program.value = {
+    image: null,
+    imageName: '',
     name: '',
     description: '',
     time: '',
     slot: '',
     coach_id: '',
   }
+}
+
+const onFileChange = e => {
+  handleFileChange(e, program.value, 'image')
 }
 
 const handleSubmit = () => {
@@ -64,7 +73,20 @@ onBeforeMount(() => {
           <VRow>
             <VCol
               cols="12"
-              md="12"
+              md="6"
+            >
+              <VFileInput
+                v-model="program.imageName"
+                label="Image"
+                placeholder="Choose Image"
+                :error-messages="error && error.image ? [error.image] : []"
+                @change="onFileChange"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
             >
               <VTextField
                 v-model="program.name"

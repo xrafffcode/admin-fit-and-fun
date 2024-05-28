@@ -35,7 +35,7 @@ const fetchProgramData = async () => {
       description: data.description,
       time: formatDateToISO(data.time),
       slot: data.slot,
-      coach_id: data.coach_id,
+      coach_id: data.coach.id,
     }
   } catch (error) {
     console.error(error)

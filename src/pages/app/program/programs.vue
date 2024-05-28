@@ -6,6 +6,10 @@ import { formatDateTime } from '@/@core/utils/formatters'
 
 const headers = [
   {
+    text: 'Image',
+    value: 'image',
+  },
+  {
     text: 'Nama',
     value: 'name',
   },
@@ -114,6 +118,15 @@ onBeforeMount(() => {
           show-index
           class="data-table"
         >
+          <template #item-image="item">
+            <VImg
+              :src="item.image_url"
+              width="100"
+              height="100"
+              contain
+            />
+          </template>
+
           <template #item-time="item">
             {{ formatDateTime(item.time) }}
           </template>
