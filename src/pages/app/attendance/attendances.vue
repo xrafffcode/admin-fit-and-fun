@@ -9,8 +9,8 @@ const headers = [
     value: 'member.name',
   },
   {
-    text: 'Program',
-    value: 'program.name',
+    text: 'Exercise',
+    value: 'exercise.name',
   },
   {
     text: 'Shake',

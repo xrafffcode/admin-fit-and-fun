@@ -25,7 +25,7 @@ const { fetchGoals, deleteGoal } = useGoalStore()
 fetchGoals()
 
 async function handleDeleteGoal(goal) {
-  const confirmed = confirm('Delete this goal?')
+  const confirmed = confirm('Delete this program?')
   if (confirmed) {
     await deleteGoal(goal.id)
     fetchGoals()

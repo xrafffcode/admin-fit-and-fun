@@ -109,7 +109,7 @@ const handleReset = () => {
               <VAutocomplete
                 v-model="attendance.program_id"
                 :items="programs"
-                label="Select Program"
+                label="Select Exercise"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.program_id ? [error.program_id] : []"
