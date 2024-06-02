@@ -9,6 +9,10 @@ const headers = [
     value: 'name',
   },
   {
+    text: 'Email',
+    value: 'user.email',
+  },
+  {
     text: 'Phone Number',
     value: 'phone_number',
   },
