@@ -35,11 +35,23 @@ export const useAuthStore = defineStore({
       }
     },
     async logout() {
-      localStorage.removeItem('token')
-      this.user = null
-      this.error = null
-      this.success = 'logout'
-      router.push({ name: 'login' })
+      this.loading = true
+
+      try {
+        await axiosInstance.post('/logout')
+
+        localStorage.removeItem('token')
+
+        this.user = null
+        this.error = null
+        this.success = 'Logout successful'
+
+        router.push({ name: 'login' })
+      } catch (error) {
+        this.error = handleError(error)
+      } finally {
+        this.loading = false
+      }
     },
     async checkAuth() {
       this.loading = true

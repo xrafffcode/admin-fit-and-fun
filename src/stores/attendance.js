@@ -85,5 +85,18 @@ export const useAttendanceStore = defineStore({
         this.loading = false
       }
     },
+    async absentAttendance(id) {
+      try {
+        this.loading = true
+
+        const response = await axiosInstance.post(`/attendance/${id}/absent`)
+
+        this.success = response.data.message
+      } catch (error) {
+        this.error = handleError(error)
+      } finally {
+        this.loading = false
+      }
+    }
   },
 })

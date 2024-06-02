@@ -16,6 +16,7 @@ checkAuth()
     color="primary"
     variant="tonal"
   >
+    {{ user?.email.charAt(0) }}
     <!-- SECTION Menu -->
     <VMenu
       activator="parent"
@@ -31,7 +32,9 @@ checkAuth()
               <VAvatar
                 color="primary"
                 variant="tonal"
-              />
+              >
+                {{ user?.email.charAt(0) }}
+              </VAvatar>
             </VListItemAction>
           </template>
 

@@ -10,7 +10,7 @@ const headers = [
   },
   {
     text: 'Exercise',
-    value: 'exercise.name',
+    value: 'program.title',
   },
   {
     text: 'Shake',
@@ -25,14 +25,17 @@ const headers = [
     value: 'parking_ticket',
   },
   {
+    text: 'Attended',
+    value: 'attended',
+  },
+  {
     text: 'Action',
-    value: 'operation',
-    sortable: false,
+    value: 'action',
   },
 ]
 
 const { attendances, loading, success } = storeToRefs(useAttendanceStore())
-const { fetchAttendances, deleteAttendance } = useAttendanceStore()
+const { fetchAttendances, deleteAttendance, absentAttendance } = useAttendanceStore()
 
 fetchAttendances()
 
@@ -45,6 +48,18 @@ async function handleDeleteAttendance(attendance) {
 }
 
 const search = ref('')
+
+async function handleUpdateAttendance(attendance) {
+  const confirmed = confirm('Apakah anda yakin mengubah status kehadiran?')
+
+  if (confirmed) {
+    await absentAttendance(attendance.id)
+
+    fetchAttendances()
+  }
+
+  return false
+}
 
 onBeforeMount(() => {
   document.title = 'Attendances'
@@ -113,6 +128,17 @@ onBeforeMount(() => {
           show-index
           class="data-table"
         >
+          <template
+            v-if="can('attendance-absent')"
+            #item-attended="item"
+          >
+            <VCheckbox
+              v-model="item.is_attended"
+              color="primary"
+              :disabled="item.is_attended"
+              @change="handleUpdateAttendance(item)"
+            />
+          </template>
           <template #item-operation="item">
             <VBtn
               v-if="can('attendance-edit')"
