@@ -49,6 +49,8 @@ export const useAuthStore = defineStore({
         router.push({ name: 'login' })
       } catch (error) {
         this.error = handleError(error)
+
+        router.push({ name: 'login' })
       } finally {
         this.loading = false
       }
