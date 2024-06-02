@@ -1,8 +1,9 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
-import { onMounted, onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useGoalStore } from '@/stores/goal'
+import { handleFileChange } from '@/helpers/fileHelper'
 
 const route = useRoute()
 
@@ -13,6 +14,9 @@ const goalId = route.params.id
 
 const goal = ref({
   id: goalId,
+  image: null,
+  image_name: '',
+  image_url: '',
   name: '',
   description: '',
 })
@@ -25,6 +29,9 @@ const fetchGoalData = async () => {
       id: data.id,
       name: data.name,
       description: data.description,
+      image: null,
+      image_name: '',
+      image_url: data.image_url,
     }
   } catch (error) {
     console.error(error)
@@ -38,6 +45,12 @@ onBeforeMount(() => {
 
 const handleSubmit = () => {
   updateGoal(goal.value)
+}
+
+const onFileChange = e => {
+  handleFileChange(e, goal.value, 'image')
+
+  goal.value.image_url = URL.createObjectURL(e.target.files[0])
 }
 
 const handleReset = () => {
@@ -67,6 +80,27 @@ const handleReset = () => {
       <VCard>
         <VForm @submit.prevent="handleSubmit">
           <VRow>
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VImg
+                v-if="goal.image_url"
+                :src="goal.image_url"
+                width="100"
+                height="auto"
+                class="mb-4"
+              />
+
+              <VFileInput
+                v-model="goal.image_name"
+                label="Image"
+                placeholder="Choose an image"
+                accept="image/*"
+                @change="onFileChange"
+              />
+            </VCol>
+
             <VCol
               cols="12"
               md="12"

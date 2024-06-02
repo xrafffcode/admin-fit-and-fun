@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
 import { useGoalStore } from '@/stores/goal'
+import { handleFileChange } from '@/helpers/fileHelper'
 
 const { loading, error } = storeToRefs(useGoalStore())
 const { createGoal } = useGoalStore()
@@ -23,7 +24,7 @@ const handleReset = () => {
 }
 
 const onFileChange = e => {
-  handleFileChange(e, program.value, 'image')
+  handleFileChange(e, goal.value, 'image')
 }
 
 const handleSubmit = () => {
@@ -62,7 +63,7 @@ onBeforeMount(() => {
           <VRow>
             <VCol
               cols="12"
-              md="6"
+              md="12"
             >
               <VFileInput
                 v-model="goal.imageName"

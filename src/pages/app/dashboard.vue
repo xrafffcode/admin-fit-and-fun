@@ -1,4 +1,6 @@
+
 <script setup>
+import { onBeforeMount } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { can } from '@/helpers/permissionHelper'
 import { useAdminStore } from '@/stores/admin'
@@ -7,43 +9,35 @@ import { useCoachStore } from '@/stores/coach'
 import { useGoalStore } from '@/stores/goal'
 import { useMemberStore } from '@/stores/member'
 import { useMembershipStore } from '@/stores/membership'
-import { usePermissionStore } from '@/stores/permission'
 import { useProgramStore } from '@/stores/program'
-import { useRoleStore } from '@/stores/role'
 import { useShakeStore } from '@/stores/shake'
-
-document.title = 'Dashboard'
+import { storeToRefs } from 'pinia'
 
 const { user } = useAuthStore()
 
-const { admins } = useAdminStore()
+const { admins } = storeToRefs(useAdminStore())
 const { fetchAdmins } = useAdminStore()
 
-const { attendances } = useAttendanceStore()
+const { attendances } = storeToRefs(useAttendanceStore())
 const { fetchAttendances } = useAttendanceStore()
 
-const { coaches } = useCoachStore()
+const { coaches } = storeToRefs(useCoachStore())
 const { fetchCoaches } = useCoachStore()
 
-const { goals } = useGoalStore()
+const { goals } = storeToRefs(useGoalStore())
 const { fetchGoals } = useGoalStore()
 
-const { members } = useMemberStore()
+const { members } = storeToRefs(useMemberStore())
 const { fetchMembers } = useMemberStore()
 
-const { memberships } = useMembershipStore()
+const { memberships } = storeToRefs(useMembershipStore())
 const { fetchMemberships } = useMembershipStore()
 
-const { permissions } = usePermissionStore()
-const { fetchPermissions } = usePermissionStore()
-
-const { programs } = useProgramStore()
+const { programs } = storeToRefs(useProgramStore())
 const { fetchPrograms } = useProgramStore()
 
-const { roles } = useRoleStore()
-const { fetchRoles } = useRoleStore()
 
-const { shakes } = useShakeStore()
+const { shakes } = storeToRefs(useShakeStore())
 const { fetchShakes } = useShakeStore()
 
 fetchAdmins()
@@ -52,11 +46,15 @@ fetchCoaches()
 fetchGoals()
 fetchMembers()
 fetchMemberships()
-fetchPermissions()
 fetchPrograms()
-fetchRoles()
 fetchShakes()
+
+onBeforeMount(() => {
+  document.title = 'Dashboard'
+  
+})
 </script>
+
 
 <template>
   <VRow>
@@ -73,9 +71,9 @@ fetchShakes()
 
   <VRow v-if="can('dashboard-owner')">
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -88,9 +86,9 @@ fetchShakes()
     </VCol>
 
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -103,9 +101,9 @@ fetchShakes()
     </VCol>
 
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -118,9 +116,9 @@ fetchShakes()
     </VCol>
 
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -133,9 +131,9 @@ fetchShakes()
     </VCol>
 
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -148,9 +146,9 @@ fetchShakes()
     </VCol>
 
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -163,24 +161,9 @@ fetchShakes()
     </VCol>
 
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
-    >
-      <VCard>
-        <VCardTitle>
-          Total Roles
-        </VCardTitle>
-        <VCardText>
-          {{ roles.length }}
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <VCol 
-      cols="6"
-      sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -193,9 +176,9 @@ fetchShakes()
     </VCol>
 
     <VCol 
-      cols="6"
+      cols="3"
       sm="12"
-      md="6"
+      md="3"
     >
       <VCard>
         <VCardTitle>
@@ -203,21 +186,6 @@ fetchShakes()
         </VCardTitle>
         <VCardText>
           {{ admins.length }}
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <VCol 
-      cols="6"
-      sm="12"
-      md="6"
-    >
-      <VCard>
-        <VCardTitle>
-          Total Permissions
-        </VCardTitle>
-        <VCardText>
-          {{ permissions.length }}
         </VCardText>
       </VCard>
     </VCol>

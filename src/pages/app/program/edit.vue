@@ -105,7 +105,7 @@ const handleReset = () => {
             </VCol>
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
               <VTextField
                 v-model="program.name"
