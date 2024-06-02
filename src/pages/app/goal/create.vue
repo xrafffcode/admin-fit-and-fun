@@ -7,15 +7,23 @@ const { loading, error } = storeToRefs(useGoalStore())
 const { createGoal } = useGoalStore()
 
 const goal = ref({
+  image: null,
+  imageName: '',
   name: '',
   description: '',
 })
 
 const handleReset = () => {
   goal.value = {
+    image: null,
+    imageName: '',
     name: '',
     description: '',
   }
+}
+
+const onFileChange = e => {
+  handleFileChange(e, program.value, 'image')
 }
 
 const handleSubmit = () => {
@@ -52,6 +60,18 @@ onBeforeMount(() => {
       <VCard>
         <VForm @submit.prevent="handleSubmit">
           <VRow>
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VFileInput
+                v-model="goal.imageName"
+                label="Image"
+                placeholder="Choose Image"
+                :error-messages="error && error.image ? [error.image] : []"
+                @change="onFileChange"
+              />
+            </VCol>
             <VCol
               cols="12"
               md="12"

@@ -5,6 +5,10 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
+    text: 'Image',
+    value: 'image',
+  },
+  {
     text: 'Name',
     value: 'name',
   },
@@ -101,6 +105,18 @@ onBeforeMount(() => {
           show-index
           class="data-table"
         >
+          <template #item-image="item">
+            <VImg
+              :src="item.image_url"
+              width="100"
+              height="100"
+              contain
+            />
+          </template>
+
+          <template #item-time="item">
+            {{ formatDateTime(item.time) }}
+          </template>
           <template #item-operation="item">
             <VBtn
               v-if="can('goal-edit')"
