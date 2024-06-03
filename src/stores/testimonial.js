@@ -3,33 +3,33 @@ import router from '@/router'
 import { defineStore } from 'pinia'
 import { handleError } from '@/helpers/errorHelper'
 
-export const useTestimoniStore = defineStore({
-  id: 'testimoni',
+export const useTestimonialStore = defineStore({
+  id: 'testimonial',
   state: () => ({
-    testimonis: [],
+    testimonials: [],
     loading: false,
     error: null,
     success: null,
   }),
   actions: {
-    async fetchTestimonis() {
+    async fetchTestimonials() {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get('/testimoni')
+        const response = await axiosInstance.get('/testimonial')
 
-        this.testimonis = response.data.data
+        this.testimonials = response.data.data
       } catch (error) {
         this.handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async fetchTestimoni(id) {
+    async fetchTestimonial(id) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get(`/testimoni/${id}`)
+        const response = await axiosInstance.get(`/testimonial/${id}`)
 
         return response.data.data
       } catch (error) {
@@ -38,33 +38,33 @@ export const useTestimoniStore = defineStore({
         this.loading = false
       }
     },
-    async createTestimoni(payload) {
+    async createTestimonial(payload) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.post('/testimoni', payload)
+        const response = await axiosInstance.post('/testimonial', payload)
 
         this.success = response.data.message
 
-        router.push({ name: 'testimonis' })
+        router.push({ name: 'testimonials' })
       } catch (error) {
         this.error = handleError(error)
       } finally {
         this.loading = false
       }
     },
-    async updateTestimoni(payload) {
+    async updateTestimonial(payload) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.post(`/testimoni/${payload.id}`, {
+        const response = await axiosInstance.post(`/testimonial/${payload.id}`, {
           ...payload,
           _method: 'PUT',
         })
 
         this.success = response.data.message
 
-        router.push({ name: 'testimonis' })
+        router.push({ name: 'testimonials' })
       } catch (error) {
         console.error(error)
         this.error = handleError(error)
@@ -72,11 +72,11 @@ export const useTestimoniStore = defineStore({
         this.loading = false
       }
     },
-    async deleteTestimoni(id) {
+    async deleteTestimonial(id) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.delete(`/testimoni/${id}`)
+        const response = await axiosInstance.delete(`/testimonial/${id}`)
 
         this.success = response.data.message
       } catch (error) {

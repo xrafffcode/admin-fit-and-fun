@@ -1,40 +1,40 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
-import { useTestimoniStore } from '@/stores/testimoni'
+import { useTestimonialStore } from '@/stores/testimonial'
 import { handleFileChange } from '@/helpers/fileHelper'
 
-const { loading, error } = storeToRefs(useTestimoniStore())
-const { createTestimoni } = useTestimoniStore()
+const { loading, error } = storeToRefs(useTestimonialStore())
+const { createTestimonial } = useTestimonialStore()
 
-const testimoni = ref({
+const testimonial = ref({
   image: null,
   imageName: '',
   name: '',
   job: '',
-  testimoni: '',
+  testimonial: '',
 })
 
 const handleReset = () => {
-  testimoni.value = {
+  testimonial.value = {
     image: null,
     imageName: '',
     name: '',
     job: '',
-    testimoni: '',
+    testimonial: '',
   }
 }
 
 const onFileChange = e => {
-  handleFileChange(e, testimoni.value, 'image')
+  handleFileChange(e, testimonial.value, 'image')
 }
 
 const handleSubmit = () => {
-  createTestimoni(testimoni.value)
+  createTestimonial(testimonial.value)
 }
 
 onBeforeMount(() => {
-  document.title = 'Add Testimoni'
+  document.title = 'Add Testimonial'
 
   handleReset()
   error.value = null
@@ -48,11 +48,11 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Add Testimoni
+        Add Testimonial
       </h2>
 
       <VBtn
-        :to="{ name: 'testimonis' }"
+        :to="{ name: 'testimonials' }"
         color="primary"
       >
         Back
@@ -68,7 +68,7 @@ onBeforeMount(() => {
               md="12"
             >
               <VFileInput
-                v-model="testimoni.imageName"
+                v-model="testimonial.imageName"
                 label="Avatar"
                 placeholder="Choose Avatar"
                 :error-messages="error && error.image ? [error.image] : []"
@@ -81,7 +81,7 @@ onBeforeMount(() => {
               md="12"
             >
               <VTextField
-                v-model="testimoni.name"
+                v-model="testimonial.name"
                 label="Name"
                 placeholder="Sender Name"
                 :error-messages="error && error.name ? [error.name] : []"
@@ -93,7 +93,7 @@ onBeforeMount(() => {
               md="12"
             >
               <VTextField
-                v-model="testimoni.job"
+                v-model="testimonial.job"
                 label="Job"
                 placeholder="Sender Job"
                 :error-messages="error && error.name ? [error.name] : []"
@@ -105,7 +105,7 @@ onBeforeMount(() => {
               md="12"
             >
               <VTextarea
-                v-model="testimoni.testimoni"
+                v-model="testimonial.testimonial"
                 label="Testimoni"
                 placeholder="Testimoni Message"
                 :error-messages="error && error.name ? [error.name] : []"

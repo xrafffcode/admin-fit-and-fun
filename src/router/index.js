@@ -60,7 +60,7 @@ router.beforeEach(async (to, from, next) => {
         const hasPermission = to.meta.permissions.every(permission => userPermissions.includes(permission))
         if (!hasPermission) {
           next({ name: '403' })
-          
+
           return
         }
       }

@@ -65,10 +65,10 @@ checkAuth()
   
   <VerticalNavLink
     :item="{
-      title: 'Testimoni',
+      title: 'Testimonial',
       icon: 'bx-message-detail',
-      to: '/app/testimoni',
-      permission: 'testimoni-list',
+      to: '/app/testimonial',
+      permission: 'testimonial-list',
     }"
   />
 

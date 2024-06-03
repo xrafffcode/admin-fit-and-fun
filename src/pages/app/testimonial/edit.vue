@@ -2,38 +2,38 @@
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { onBeforeMount, ref } from 'vue'
-import { useTestimoniStore } from '@/stores/testimoni'
+import { useTestimonialStore } from '@/stores/testimonial'
 import { handleFileChange } from '@/helpers/fileHelper'
 
 const route = useRoute()
 
-const { loading, error } = storeToRefs(useTestimoniStore())
-const { fetchTestimoni, updateTestimoni } = useTestimoniStore()
+const { loading, error } = storeToRefs(useTestimonialStore())
+const { fetchTestimonial, updateTestimonial } = useTestimonialStore()
 
-const testimoniId = route.params.id
+const testimonialId = route.params.id
 
-const testimoni = ref({
-  id: testimoniId,
+const testimonial = ref({
+  id: testimonialId,
   image: null,
   image_name: '',
   image_url: '',
   name: '',
   job: '',
-  testimoni: '',
+  testimonial: '',
 })
 
-const fetchTestimoniData = async () => {
+const fetchTestimonialData = async () => {
   try {
-    const data = await fetchTestimoni(testimoniId)
+    const data = await fetchTestimonial(testimonialId)
 
-    testimoni.value = {
+    testimonial.value = {
       id: data.id,
       image: null,
       image_name: '',
       image_url: data.image_url,
       name: data.name,
       job: data.job,
-      testimoni: data.testimoni,
+      testimonial: data.testimonial,
     }
   } catch (error) {
     console.error(error)
@@ -41,22 +41,22 @@ const fetchTestimoniData = async () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Edit Testimoni'
-  fetchTestimoniData()
+  document.title = 'Edit Testimonial'
+  fetchTestimonialData()
 })
 
 const handleSubmit = () => {
-  updateTestimoni(testimoni.value)
+  updateTestimonial(testimonial.value)
 }
 
 const onFileChange = e => {
-  handleFileChange(e, testimoni.value, 'image')
+  handleFileChange(e, testimonial.value, 'image')
 
-  testimoni.value.image_url = URL.createObjectURL(e.target.files[0])
+  testimonial.value.image_url = URL.createObjectURL(e.target.files[0])
 }
 
 const handleReset = () => {
-  fetchTestimoniData()
+  fetchTestimonialData()
 }
 </script>
 
@@ -67,11 +67,11 @@ const handleReset = () => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Edit Testimoni
+        Edit Testimonial
       </h2>
 
       <VBtn
-        :to="{ name: 'testimonis' }"
+        :to="{ name: 'testimonials' }"
         color="primary"
       >
         Back
@@ -87,15 +87,15 @@ const handleReset = () => {
               md="12"
             >
               <VImg
-                v-if="testimoni.image_url"
-                :src="testimoni.image_url"
+                v-if="testimonial.image_url"
+                :src="testimonial.image_url"
                 width="100"
                 height="auto"
                 class="mb-4"
               />
 
               <VFileInput
-                v-model="testimoni.image_name"
+                v-model="testimonial.image_name"
                 label="Avatar"
                 placeholder="Choose an avatar"
                 accept="image/*"
@@ -108,7 +108,7 @@ const handleReset = () => {
               md="12"
             >
               <VTextField
-                v-model="testimoni.name"
+                v-model="testimonial.name"
                 label="Name"
                 placeholder="Sender Name"
                 :error-messages="error && error.name ? [error.name] : []"
@@ -122,7 +122,7 @@ const handleReset = () => {
               md="12"
             >
               <VTextarea
-                v-model="testimoni.job"
+                v-model="testimonial.job"
                 label="Job"
                 placeholder="Sender Job"
                 :error-messages="error && error.name ? [error.name] : []"
@@ -136,7 +136,7 @@ const handleReset = () => {
               md="12"
             >
               <VTextarea
-                v-model="testimoni.testimoni"
+                v-model="testimonial.testimonial"
                 label="Testimoni"
                 placeholder="Testimoni Message"
                 :error-messages="error && error.name ? [error.name] : []"

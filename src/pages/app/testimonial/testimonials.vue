@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { useTestimoniStore } from '@/stores/testimoni'
+import { useTestimonialStore } from '@/stores/testimonial'
 import { can } from '@/helpers/permissionHelper'
 
 const headers = [
@@ -18,7 +18,7 @@ const headers = [
   },
   {
     text: 'Testimoni',
-    value: 'testimoni',
+    value: 'testimonial',
   },
   {
     text: 'Action',
@@ -27,16 +27,16 @@ const headers = [
   },
 ]
 
-const { testimonis, loading, success } = storeToRefs(useTestimoniStore())
-const { fetchTestimonis, deleteTestimoni } = useTestimoniStore()
+const { testimonials, loading, success } = storeToRefs(useTestimonialStore())
+const { fetchTestimonials, deleteTestimonial } = useTestimonialStore()
 
-fetchTestimonis()
+fetchTestimonials()
 
-async function handleDeleteTestimoni(testimoni) {
+async function handleDeleteTestimonial(testimonial) {
   const confirmed = confirm('Delete this testimoni?')
   if (confirmed) {
-    await deleteTestimoni(testimoni.id)
-    fetchTestimonis()
+    await deleteTestimonial(testimonial.id)
+    fetchTestimonials()
   }
 }
 
@@ -75,15 +75,15 @@ onBeforeMount(() => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Testimonis List
+        Testimonial List
       </h2>
 
       <VBtn
-        v-if="can('testimoni-create')"
-        :to="{ name: 'testimoni-create' }"
+        v-if="can('testimonial-create')"
+        :to="{ name: 'testimonial-create' }"
         color="primary"
       >
-        Add Testimoni
+        Add Testimonial
       </VBtn>
     </VCol>
 
@@ -102,7 +102,7 @@ onBeforeMount(() => {
       <VCard>
         <EasyDataTable
           :headers="headers"
-          :items="testimonis"
+          :items="testimonials"
           :loading="loading"
           :search-value="search"
           buttons-pagination
@@ -124,8 +124,8 @@ onBeforeMount(() => {
           
           <template #item-operation="item">
             <VBtn
-              v-if="can('testimoni-edit')"
-              :to="{ name: 'testimoni-edit', params: { id: item.id } }"
+              v-if="can('testimonial-edit')"
+              :to="{ name: 'testimonial-edit', params: { id: item.id } }"
               color="primary"
               size="small"
               class="m-5"
@@ -133,11 +133,11 @@ onBeforeMount(() => {
               Edit
             </VBtn>
             <VBtn
-              v-if="can('testimoni-delete')"
+              v-if="can('testimonial-delete')"
               color="error"
               size="small"
               class="m-5"
-              @click="() => handleDeleteTestimoni(item)"
+              @click="() => handleDeleteTestimonial(item)"
             >
               Delete
             </VBtn>
