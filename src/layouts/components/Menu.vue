@@ -61,6 +61,15 @@ checkAuth()
       to: '/app/membership',
       permission: 'membership-list',
     }"
+  />  
+  
+  <VerticalNavLink
+    :item="{
+      title: 'Testimoni',
+      icon: 'bx-message-detail',
+      to: '/app/testimoni',
+      permission: 'testimoni-list',
+    }"
   />
 
   <VerticalNavLink

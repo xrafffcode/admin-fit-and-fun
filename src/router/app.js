@@ -8,6 +8,7 @@ import permissionRoutes from "./permission"
 import programRoutes from "./program"
 import roleRoutes from "./role"
 import shakeRoutes from "./shake"
+import testimoniRoutes from "./testimoni"
 
 const appRoutes = [
   ...adminRoutes,
@@ -20,6 +21,7 @@ const appRoutes = [
   ...programRoutes,
   ...roleRoutes,
   ...shakeRoutes,
+  ...testimoniRoutes,
 ]
 
 export default appRoutes
