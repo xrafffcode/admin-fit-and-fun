@@ -29,7 +29,7 @@ const headers = [
     value: 'coach.name',
   },
   {
-    text: 'Goal',
+    text: 'Program',
     value: 'goal.name',
   },
   {

@@ -62,6 +62,15 @@ checkAuth()
       permission: 'membership-list',
     }"
   />  
+
+  <VerticalNavLink
+    :item="{
+      title: 'Member Progress',
+      icon: 'bx-trophy',
+      to: '/app/member-progress',
+      permission: 'member-progress-list',
+    }"
+  />
   
   <VerticalNavLink
     :item="{
@@ -104,6 +113,15 @@ checkAuth()
           permission: 'permission-list',
         },
       ],
+    }"
+  />
+
+  <VerticalNavLink
+    :item="{
+      title: 'Web Configuration',
+      icon: 'bx-cog',
+      to: '/app/web-configuration',
+      permission: 'web-configuration-list',
     }"
   />
 </template>

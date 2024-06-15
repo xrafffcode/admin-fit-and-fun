@@ -178,7 +178,7 @@ onBeforeMount(() => {
               <VAutocomplete
                 v-model="member.goal_id"
                 :items="goals"
-                label="Select Goal"
+                label="Select Program"
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.goal_id ? [error.goal_id] : []"

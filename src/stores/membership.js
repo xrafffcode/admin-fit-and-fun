@@ -72,7 +72,7 @@ export const useMembershipStore = defineStore({
         this.loading = false
       }
     },
-    async deleteMembershipMembership(id) {
+    async deleteMembership(id) {
       try {
         this.loading = true
 

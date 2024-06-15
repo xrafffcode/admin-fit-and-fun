@@ -3,19 +3,19 @@ const memberRoutes = [
     path: 'member',
     component: () => import('@/pages/app/member/members.vue'),
     name: 'members',
-    meta: { coach: 'member-list' },
+    meta: { permission: 'member-list' },
   },
   {
     path: 'member/create',
     component: () => import('@/pages/app/member/create.vue'),
     name: 'member-create',
-    meta: { coach: 'member-create' },
+    meta: { permission: 'member-create' },
   },
   {
     path: 'member/:id/edit',
     component: () => import('@/pages/app/member/edit.vue'),
     name: 'member-edit',
-    meta: { coach: 'member-edit' },
+    meta: { permission: 'member-edit' },
   },
 ]
     
