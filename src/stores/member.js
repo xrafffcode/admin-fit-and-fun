@@ -57,7 +57,7 @@ export const useMemberStore = defineStore({
       try {
         this.loading = true
 
-        const response = await axiosInstance.put(`/member/${payload.id}`, {
+        const response = await axiosInstance.post(`/member/${payload.id}`, {
           ...payload,
           _method: 'PUT',
         })

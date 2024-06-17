@@ -33,14 +33,14 @@ const fetchMemberData = async () => {
   try {
     const data = await fetchMember(memberId)
 
-    permission.value = {
+    member.value = {
       id: data.id,
       name: data.name,
       phone_number: data.phone_number,
       weight: data.weight,
       height: data.height,
-      coach_id: data.coach_id,
-      goal_id: data.goal_id,
+      coach_id: data.coach.id,
+      goal_id: data.goal.id,
     }
   } catch (error) {
     console.error(error)

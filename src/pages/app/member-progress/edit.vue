@@ -2,45 +2,46 @@
 import { storeToRefs } from 'pinia'
 import { useRoute } from 'vue-router'
 import { onBeforeMount, ref } from 'vue'
+import { useMemberProgressStore } from '@/stores/member-progress'
 import { useMemberStore } from '@/stores/member'
-import { useCoachStore } from '@/stores/coach'
-import { useGoalStore } from '@/stores/goal'
 
 const route = useRoute()
 
-const { loading, error } = storeToRefs(useMemberStore())
-const { fetchMember, updateMember } = useMemberStore()
+const { loading, error } = storeToRefs(useMemberProgressStore())
+const { fetchMemberProgres, updateMemberProgress } = useMemberProgressStore()
 
-const { coaches } = storeToRefs(useCoachStore())
-const { fetchCoaches } = useCoachStore()
+const { members } = storeToRefs(useMemberStore())
+const { fetchMembers } = useMemberStore()
 
-const { goals } = storeToRefs(useGoalStore())
-const { fetchGoals } = useGoalStore()
+const memberProgressId = route.params.id
 
-const memberId = route.params.id
 
-const member = ref({
-  id: memberId,
-  name: '',
-  phone_number: '',
+const memberProgress = ref({
+  id: memberProgressId,
+  member_id: '',
+  date: '',
   weight: '',
-  height: '',
-  coach_id: '',
-  goal_id: '',
+  body_fat: '',
+  muscle_mass: '',
+  cell_age: '',
+  fat: '',
+  note: '',
 })
 
-const fetchMemberData = async () => {
+const fetchMemberProgresData = async () => {
   try {
-    const data = await fetchMember(memberId)
+    const data = await fetchMemberProgres(memberProgressId)
 
-    permission.value = {
-      id: data.id,
-      name: data.name,
-      phone_number: data.phone_number,
-      weight: data.weight,
-      height: data.height,
-      coach_id: data.coach_id,
-      goal_id: data.goal_id,
+    memberProgress.value = {
+      id: memberProgressId,
+      member_id: data.member.id,
+      date: data.date,
+      weight: parseFloat(data.weight),
+      body_fat: parseFloat(data.body_fat),
+      muscle_mass: parseFloat(data.muscle_mass),
+      cell_age: parseFloat(data.cell_age),
+      fat: parseFloat(data.fat),
+      note: data.note,
     }
   } catch (error) {
     console.error(error)
@@ -48,18 +49,17 @@ const fetchMemberData = async () => {
 }
 
 onBeforeMount(() => {
-  document.title = 'Member Edit'
-  fetchMemberData()
-  fetchCoaches()
-  fetchGoals()
+  document.title = 'Member Progress Edit'
+  fetchMemberProgresData()
+  fetchMembers()
 })
 
 const handleSubmit = () => {
-  updateMember(member.value)
+  updateMemberProgress(memberProgress.value)
 }
 
 const handleReset = () => {
-  fetchMemberData()
+  fetchMemberProgresData()
 }
 </script>
 
@@ -70,11 +70,11 @@ const handleReset = () => {
       class="d-flex justify-space-between align-items-center"
     >
       <h2 class="mb-0">
-        Member Edit
+        Member Progress Edit
       </h2>
 
       <VBtn
-        :to="{ name: 'members' }"
+        :to="{ name: 'member-progress' }"
         color="primary"
       >
         Back
@@ -87,43 +87,88 @@ const handleReset = () => {
           <VRow>
             <VCol
               cols="12"
-              md="12"
+              md="6"
+            >
+              <VSelect
+                v-model="memberProgress.member_id"
+                :items="members"
+                item-title="name"
+                item-value="id"
+                label="Member"
+                required
+                :error-messages="error && error.member_id ? [error.member_id] : []"
+              />
+            </VCol>
+           
+            <VCol
+              cols="12"
+              md="6"
             >
               <VTextField
-                v-model="member.name"
-                label="Name"
-                placeholder="Member Name"
-                :error-messages="error && error.name ? [error.name] : []"
-                :disabled="loading"
-                :loading="loading"
+                v-model="memberProgress.date"
+                label="Date"
+                type="date"
+                required
+                :error-messages="error && error.date ? [error.date] : []"
               />
             </VCol>
 
             <VCol
               cols="12"
-              md="12"
+              md="6"
             >
               <VTextField
-                v-model="member.phone_number"
-                label="Phone Number"
-                placeholder="0812233456"
-                :error-messages="error && error.phone_number ? [error.phone_number] : []"
-                :disabled="loading"
-                :loading="loading"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VTextField
-                v-model="member.weight"
+                v-model="memberProgress.weight"
                 label="Weight"
-                placeholder="Enter numbers only"
+                type="number"
+                required
                 :error-messages="error && error.weight ? [error.weight] : []"
-                :disabled="loading"
-                :loading="loading"
+                placeholder="Enter numbers only kg"
+                suffix="kg"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="memberProgress.body_fat"
+                label="BodyFat"
+                type="number"
+                required
+                :error-messages="error && error.body_fat ? [error.body_fat] : []"
+                placeholder="Enter numbers only %"
+                suffix="%"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="memberProgress.muscle_mass"
+                label="Muscle Mass"
+                type="number"
+                required
+                :error-messages="error && error.muscle_mass ? [error.muscle_mass] : []"
+                placeholder="Enter numbers only kg"
+                suffix="kg"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="6"
+            >
+              <VTextField
+                v-model="memberProgress.cell_age"
+                label="Cell Age"
+                type="number"
+                required
+                :error-messages="error && error.cell_age ? [error.cell_age] : []"
+                placeholder="Enter numbers only"
               />
             </VCol>
 
@@ -132,12 +177,12 @@ const handleReset = () => {
               md="12"
             >
               <VTextField
-                v-model="member.height"
-                label="Height"
+                v-model="memberProgress.fat"
+                label="Fat"
+                type="number"
+                required
+                :error-messages="error && error.fat ? [error.fat] : []"
                 placeholder="Enter numbers only"
-                :error-messages="error && error.height ? [error.height] : []"
-                :disabled="loading"
-                :loading="loading"
               />
             </VCol>
 
@@ -145,30 +190,14 @@ const handleReset = () => {
               cols="12"
               md="12"
             >
-              <VAutocomplete
-                v-model="member.coach_id"
-                :items="coaches"
-                label="Select Coach"
-                item-title="name"
-                item-value="id"
-                :error-messages="error && error.coach_id ? [error.coach_id] : []"
-              />
+              <VTextarea
+                v-model="memberProgress.note"
+                label="Note"
+                required
+                :error-messages="error && error.note ? [error.note] : []"
+              /> 
             </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VAutocomplete
-                v-model="member.goal_id"
-                :items="goals"
-                label="Select Program"
-                item-title="name"
-                item-value="id"
-                :error-messages="error && error.goal_id ? [error.goal_id] : []"
-              />
-            </VCol>
-
+            
             <VCol
               cols="12"
               class="d-flex gap-4"

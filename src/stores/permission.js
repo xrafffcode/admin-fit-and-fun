@@ -57,7 +57,7 @@ export const usePermissionStore = defineStore({
       try {
         this.loading = true
 
-        const response = await axiosInstance.put(`/permission/${payload.id}`, {
+        const response = await axiosInstance.post(`/permission/${payload.id}`, {
           ...payload,
           _method: 'PUT',
         })
