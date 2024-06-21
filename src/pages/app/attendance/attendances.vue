@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { useAttendanceStore } from '@/stores/attendance'
+import { useMemberStore } from '@/stores/member'
 import { can } from '@/helpers/permissionHelper'
+
 
 const headers = [
   {
@@ -41,7 +43,17 @@ const headers = [
 const { attendances, loading, success } = storeToRefs(useAttendanceStore())
 const { fetchAttendances, deleteAttendance, absentAttendance } = useAttendanceStore()
 
+const { members } = storeToRefs(useMemberStore())
+const { fetchMembers } = useMemberStore()
+
+const filter = ref({
+  member_id: '',
+  start_date: new Date(new Date().getFullYear(), new Date().getMonth(), 2).toISOString().slice(0, 10),
+  end_date: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1).toISOString().slice(0, 10),
+})
+
 fetchAttendances()
+fetchMembers()
 
 async function handleDeleteAttendance(attendance) {
   const confirmed = confirm('Delete this attendance?')
@@ -110,6 +122,60 @@ onBeforeMount(() => {
       </VBtn>
     </VCol>
 
+    <VCol
+      cols="12"
+      md="3"
+    >
+      <VSelect
+        v-model="filter.member_id"
+        :items="members"
+        item-title="name"
+        item-value="id"
+        label="Member"
+        clearable
+        variant="solo"
+      />
+    </VCol>
+
+    <VCol
+      cols="12"
+      md="3"
+    >
+      <VTextField
+        v-model="filter.start_date"
+        label="Start Date"
+        clearable
+        variant="solo"
+        type="date"
+      />
+    </VCol>
+
+    <VCol
+      cols="12"
+      md="3"
+    >
+      <VTextField
+        v-model="filter.end_date"
+        label="End Date"
+        clearable
+        variant="solo"
+        type="date"
+      />
+    </VCol>
+
+    <VCol
+      cols="12"
+      md="3"
+    >
+      <button
+        class="btn btn-filter"
+        @click="fetchAttendances(filter)"
+      >
+        <VIcon icon="mdi-magnify" />
+        Filter
+      </button>
+    </VCol>
+
     <VCol cols="12">
       <VTextField
         v-model="search"
@@ -168,3 +234,20 @@ onBeforeMount(() => {
     </VCol>
   </VRow>
 </template>
+
+
+<style>
+.btn-filter {
+  background-color: white;
+  color: #000;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  text-decoration: none;
+  height: 100%;
+}
+</style>

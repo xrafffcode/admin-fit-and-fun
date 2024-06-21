@@ -2,20 +2,15 @@
 import { storeToRefs } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
 import { useProgramStore } from '@/stores/program'
-import { useCoachStore } from '@/stores/coach'
 
 const { loading, error } = storeToRefs(useProgramStore())
 const { createProgram } = useProgramStore()
-
-const { coaches } = storeToRefs(useCoachStore())
-const { fetchCoaches } = useCoachStore()
 
 const program = ref({
   name: '',
   description: '',
   time: '',
   slot: '',
-  coach_id: '',
 })
 
 const handleReset = () => {
@@ -24,7 +19,6 @@ const handleReset = () => {
     description: '',
     time: '',
     slot: '',
-    coach_id: '',
   }
 }
 
@@ -34,7 +28,6 @@ const handleSubmit = () => {
 
 onBeforeMount(() => {
   document.title = 'Add Exercise'
-  fetchCoaches()
   handleReset()
   error.value = null
 })
@@ -107,20 +100,6 @@ onBeforeMount(() => {
                 label="Capacity Limit"
                 placeholder="Exercise Capacity Limit"
                 :error-messages="error && error.slot ? [error.slot] : []"
-              />
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VAutocomplete
-                v-model="program.coach_id"
-                :items="coaches"
-                label="Select Coach"
-                item-title="name"
-                item-value="id"
-                :error-messages="error && error.coach_id ? [error.coach_id] : []"
               />
             </VCol>
            

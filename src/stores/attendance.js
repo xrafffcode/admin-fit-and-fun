@@ -12,11 +12,11 @@ export const useAttendanceStore = defineStore({
     success: null,
   }),
   actions: {
-    async fetchAttendances() {
+    async fetchAttendances(params) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get('/attendance')
+        const response = await axiosInstance.get('/attendance', { params })
 
         this.attendances = response.data.data
       } catch (error) {

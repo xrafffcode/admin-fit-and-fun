@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from 'pinia'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 import { useMembershipStore } from '@/stores/membership'
 import { useMemberStore } from '@/stores/member'
 
@@ -24,12 +24,15 @@ const handleReset = () => {
   }
 }
 
-const handleSubmit = () => {
-  membership.value.remaining_sessions = membership.value.type
-  
+const handleSubmit = () => {  
   createMembership(membership.value)
 }
 
+watch(() => membership.value.type, val => {
+  if (val) {
+    membership.value.remaining_sessions = val
+  }
+})
 
 onBeforeMount(() => {
   document.title = 'Add Membership'
@@ -41,6 +44,23 @@ onBeforeMount(() => {
 
 <template>
   <VRow>
+    <VAlert 
+      v-if="error"
+      type="warning"
+      dismissible
+      class="mb-4"
+    >
+      {{ error }}
+      
+      <template #close>
+        <VIcon
+          @click="error = null"
+        >
+          $close
+        </VIcon>
+      </template>
+    </VAlert>
+
     <VCol
       cols="12"
       class="d-flex justify-space-between align-items-center"
@@ -85,6 +105,18 @@ onBeforeMount(() => {
                 :item-title="item => item"
                 label="Select Type"
                 :error-messages="error && error.type ? [error.type] : []"
+              />
+            </VCol>
+
+            <VCol
+              cols="12"
+              md="12"
+            >
+              <VTextField
+                v-model="membership.remaining_sessions"
+                label="Remaining Sessions"
+                placeholder="Remaining Sessions"
+                :error-messages="error && error.remaining_sessions ? [error.remaining_sessions] : []"
               />
             </VCol>
 

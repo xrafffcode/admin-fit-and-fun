@@ -4,15 +4,11 @@ import { useRoute } from 'vue-router'
 import { onBeforeMount, ref } from 'vue'
 import { formatDateToISO } from '@/@core/utils/formatters'
 import { useProgramStore } from '@/stores/program'
-import { useCoachStore } from '@/stores/coach'
 
 const route = useRoute()
 
 const { loading, error } = storeToRefs(useProgramStore())
 const { fetchProgram, updateProgram } = useProgramStore()
-
-const { coaches } = storeToRefs(useCoachStore())
-const { fetchCoaches } = useCoachStore()
 
 const programId = route.params.id
 
@@ -22,7 +18,6 @@ const program = ref({
   description: '',
   time: '',
   slot: '',
-  coach_id: '',
 })
 
 const fetchProgramData = async () => {
@@ -35,7 +30,6 @@ const fetchProgramData = async () => {
       description: data.description,
       time: formatDateToISO(data.time),
       slot: data.slot,
-      coach_id: data.coach.id,
     }
   } catch (error) {
     console.error(error)
@@ -44,7 +38,6 @@ const fetchProgramData = async () => {
 
 onBeforeMount(() => {
   document.title = 'Edit Exercise'
-  fetchCoaches()
   fetchProgramData()
 })
 
@@ -128,20 +121,6 @@ const handleReset = () => {
               />
             </VCol>
 
-            <VCol
-              cols="12"
-              md="12"
-            >
-              <VAutocomplete
-                v-model="program.coach_id"
-                :items="coaches"
-                label="Select Coach"
-                item-title="name"
-                item-value="id"
-                :error-messages="error && error.coach_id ? [error.coach_id] : []"
-              />
-            </VCol>
-           
             <VCol
               cols="12"
               class="d-flex gap-4"

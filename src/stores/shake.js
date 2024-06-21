@@ -85,5 +85,18 @@ export const useShakeStore = defineStore({
         this.loading = false
       }
     },
+    async getChartDataStatisticsShakesOut() {
+      try {
+        this.loading = true
+  
+        const response = await axiosInstance.get('/get-chart-data-statistics-shakes-out')
+  
+        return response.data
+      } catch (error) {
+        this.handleError(error)
+      } finally {
+        this.loading = false
+      }
+    },
   },
 })

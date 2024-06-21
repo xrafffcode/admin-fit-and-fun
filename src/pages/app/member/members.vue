@@ -2,6 +2,7 @@
 import { ref, onBeforeMount } from 'vue'
 import { useMemberStore } from '@/stores/member'
 import { can } from '@/helpers/permissionHelper'
+import { formatDateTime } from '@/@core/utils/formatters';
 
 const headers = [
   {
@@ -31,6 +32,10 @@ const headers = [
   {
     text: 'Program',
     value: 'goal.name',
+  },
+  {
+    text: 'Date Registered',
+    value: 'created_at',
   },
   {
     text: 'Action',
@@ -120,7 +125,10 @@ onBeforeMount(() => {
           buttons-pagination
           show-index
           class="data-table"
-        >
+        > 
+          <template #item-created_at="item">
+            {{ formatDateTime(item.created_at) }}
+          </template>
           <template #item-operation="item">
             <VBtn
               v-if="can('member-edit')"

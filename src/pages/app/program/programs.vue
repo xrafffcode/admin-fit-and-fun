@@ -25,10 +25,6 @@ const headers = [
     width: 150,
   },
   {
-    text: 'Coach',
-    value: 'coach.name',
-  },
-  {
     text: 'Action',
     value: 'operation',
     sortable: false,

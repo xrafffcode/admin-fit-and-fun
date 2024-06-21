@@ -85,5 +85,20 @@ export const useMemberStore = defineStore({
         this.loading = false
       }
     },
+
+    async getChartDataStatisticsMemberGroupByCoach() {
+      try {
+        this.loading = true
+       
+        const response = await axiosInstance.get('/get-chart-data-statistics-member-group-by-coach')
+
+      
+        return response.data
+      } catch (error) {
+        this.error = handleError(error)
+      } finally {
+        this.loading = false
+      }
+    },
   },
 })
