@@ -7,14 +7,17 @@ const headers = [
   {
     text: 'Member',
     value: 'member.name',
+    width: 200,
   },
   {
     text: 'Exercise',
     value: 'program.title',
+    width: 300,
   },
   {
     text: 'Shake',
     value: 'shake.name',
+    width: 200,
   },
   {
     text: 'Tea',
@@ -23,6 +26,7 @@ const headers = [
   {
     text: 'Parking Ticket',
     value: 'parking_ticket',
+    width: 150,
   },
   {
     text: 'Attended',

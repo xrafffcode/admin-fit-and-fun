@@ -12,14 +12,17 @@ const headers = [
   {
     text: 'Description',
     value: 'description',
+    width: 300,
   },
   {
     text: 'Date & Time',
     value: 'time',
+    width: 150,
   },
   {
     text: 'Capacity Limit',
     value: 'slot',
+    width: 150,
   },
   {
     text: 'Coach',

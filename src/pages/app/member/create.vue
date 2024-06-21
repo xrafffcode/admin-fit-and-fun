@@ -158,6 +158,7 @@ onBeforeMount(() => {
             </VCol>
 
             <VCol
+              v-if="user?.role !== 'coach'"
               cols="12"
               md="6"
             >

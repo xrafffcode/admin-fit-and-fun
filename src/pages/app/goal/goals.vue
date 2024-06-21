@@ -15,6 +15,7 @@ const headers = [
   {
     text: 'Description',
     value: 'description',
+    width: 300,
   },
   {
     text: 'Action',

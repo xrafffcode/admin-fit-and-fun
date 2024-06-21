@@ -15,6 +15,7 @@ const headers = [
   {
     text: 'Remaining Sessions',
     value: 'remaining_sessions',
+    width: 150,
   },
   {
     text: 'Action',

@@ -28,7 +28,7 @@ const fetchMembershipData = async () => {
 
     membership.value = {
       id: data.id,
-      member_id: data.member_id,
+      member_id: data.member.id,
       type: data.type,
       remaining_sessions: data.remaining_sessions,
     }

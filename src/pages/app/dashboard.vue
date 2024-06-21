@@ -1,4 +1,3 @@
-
 <script setup>
 import { onBeforeMount } from 'vue'
 import { useAuthStore } from '@/stores/auth'
@@ -51,7 +50,7 @@ fetchShakes()
 
 onBeforeMount(() => {
   document.title = 'Dashboard'
-  
+
 })
 </script>
 
@@ -60,21 +59,13 @@ onBeforeMount(() => {
   <VRow>
     <VCol cols="12">
       <h1 class="display-4">
-        Selamat Datang, {{ user?.profile?.name }}
+        Hallo Welcome Back, {{ user?.profile?.name }}
       </h1>
-
-      <p class="lead">
-        Anda login sebagai {{ user?.role }}
-      </p>
     </VCol>
   </VRow>
 
   <VRow v-if="can('dashboard-owner')">
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Members
@@ -85,11 +76,7 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Memberships
@@ -100,11 +87,7 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Attendances
@@ -115,11 +98,7 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Exercises
@@ -130,11 +109,7 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Coaches
@@ -145,11 +120,7 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Shakes
@@ -160,11 +131,7 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Programs
@@ -175,17 +142,38 @@ onBeforeMount(() => {
       </VCard>
     </VCol>
 
-    <VCol 
-      cols="3"
-      sm="12"
-      md="3"
-    >
+    <VCol cols="12" md="3">
       <VCard>
         <VCardTitle>
           Total Admins
         </VCardTitle>
         <VCardText>
           {{ admins.length }}
+        </VCardText>
+      </VCard>
+    </VCol>
+  </VRow>
+
+  <VRow v-if="can('dashboard-coach')">
+    <VCol cols="12" md="3">
+      <VCard>
+        <VCardTitle>
+          Total Members
+        </VCardTitle>
+        <VCardText>
+          {{ members.length }}
+        </VCardText>
+      </VCard>
+    </VCol>
+
+   
+    <VCol cols="12" md="3">
+      <VCard>
+        <VCardTitle>
+          Total Exercises
+        </VCardTitle>
+        <VCardText>
+          {{ programs.length }}
         </VCardText>
       </VCard>
     </VCol>

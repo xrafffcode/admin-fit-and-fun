@@ -9,10 +9,12 @@ const headers = [
   {
     text: 'Member',
     value: 'member.name',
+    width: 200,
   },
   {
     text: 'Date',
     value: 'date',
+    width: 150,
   },
   {
     text: 'Weight',
@@ -21,14 +23,17 @@ const headers = [
   {
     text: 'Body Fat',
     value: 'body_fat',
+    width: 100,
   },
   {
     text: 'Muscle Mass',
     value: 'muscle_mass',
+    width: 100,
   },
   {
     text: 'Cell Age',
     value: 'cell_age',
+    width: 100,
   },
   {
     text: 'Fat',
