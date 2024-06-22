@@ -12,11 +12,11 @@ export const useProgramStore = defineStore({
     success: null,
   }),
   actions: {
-    async fetchPrograms() {
+    async fetchPrograms(params) {
       try {
         this.loading = true
 
-        const response = await axiosInstance.get('/program')
+        const response = await axiosInstance.get('/program', { params })
 
         this.programs = response.data.data
       } catch (error) {

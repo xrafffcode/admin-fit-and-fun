@@ -34,6 +34,11 @@ const headers = [
 const { programs, loading, success } = storeToRefs(useProgramStore())
 const { fetchPrograms, deleteProgram } = useProgramStore()
 
+const filter = ref({
+  start_date: new Date(new Date().getFullYear(), new Date().getMonth(), 2).toISOString().slice(0, 10),
+  end_date: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1).toISOString().slice(0, 10),
+})
+
 fetchPrograms()
 
 async function handleDeleteProgram(program) {
@@ -91,6 +96,45 @@ onBeforeMount(() => {
       </VBtn>
     </VCol>
 
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <VTextField
+        v-model="filter.start_date"
+        label="Start Date"
+        clearable
+        variant="solo"
+        type="date"
+      />
+    </VCol>
+
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <VTextField
+        v-model="filter.end_date"
+        label="End Date"
+        clearable
+        variant="solo"
+        type="date"
+      />
+    </VCol>
+
+    <VCol
+      cols="12"
+      md="4"
+    >
+      <button
+        class="btn btn-filter"
+        @click="fetchPrograms(filter)"
+      >
+        <VIcon icon="mdi-magnify" />
+        Filter
+      </button>
+    </VCol>
+
     <VCol cols="12">
       <VTextField
         v-model="search"
@@ -141,3 +185,19 @@ onBeforeMount(() => {
     </VCol>
   </VRow>
 </template>
+
+<style>
+.btn-filter {
+  background-color: white;
+  color: #000;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  text-decoration: none;
+  height: 100%;
+}
+</style>
