@@ -36,7 +36,7 @@ const headers = [
     width: 100,
   },
   {
-    text: 'Fat',
+    text: 'Ficeral Fat',
     value: 'fat',
   },
   {

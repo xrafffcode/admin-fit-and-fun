@@ -178,7 +178,7 @@ const handleReset = () => {
             >
               <VTextField
                 v-model="memberProgress.fat"
-                label="Fat"
+                label="Ficeral Fat"
                 type="number"
                 required
                 :error-messages="error && error.fat ? [error.fat] : []"
