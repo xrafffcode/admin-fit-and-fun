@@ -202,12 +202,12 @@ onBeforeMount(() => {
             v-if="can('attendance-absent')"
             #item-attended="item"
           >
-            <VCheckbox
+            <input
               v-model="item.is_attended"
-              color="primary"
+              type="checkbox"
               :disabled="item.is_attended"
-              @change="handleUpdateAttendance(item)"
-            />
+              @change="() => handleUpdateAttendance(item)"
+            >
           </template>
           <template #item-operation="item">
             <VBtn
