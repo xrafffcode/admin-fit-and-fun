@@ -12,6 +12,10 @@ const headers = [
     width: 200,
   },
   {
+    text: 'Coach',
+    value: 'member.coach.name',
+  },
+  {
     text: 'Exercise',
     value: 'program.title',
     width: 300,
