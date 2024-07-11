@@ -8,7 +8,7 @@ const { loading, error } = storeToRefs(useMembershipStore())
 const { createMembership } = useMembershipStore()
 
 const { members } = storeToRefs(useMemberStore())
-const { fetchMembers } = useMemberStore()
+const { fetchMembers, loading: loadingMembers } = useMemberStore()
 
 const membership = ref({
   member_id: '',
@@ -92,6 +92,7 @@ onBeforeMount(() => {
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.member_id ? [error.member_id] : []"
+                :loading="loadingMembers"
               />
             </VCol>
 

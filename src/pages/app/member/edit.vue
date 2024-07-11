@@ -12,10 +12,10 @@ const { loading, error } = storeToRefs(useMemberStore())
 const { fetchMember, updateMember } = useMemberStore()
 
 const { coaches } = storeToRefs(useCoachStore())
-const { fetchCoaches } = useCoachStore()
+const { fetchCoaches, loading: loadingCoaches } = useCoachStore()
 
 const { goals } = storeToRefs(useGoalStore())
-const { fetchGoals } = useGoalStore()
+const { fetchGoals, loading: loadingGoals } = useGoalStore()
 
 const memberId = route.params.id
 
@@ -152,6 +152,7 @@ const handleReset = () => {
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.coach_id ? [error.coach_id] : []"
+                :loading="loadingCoaches"
               />
             </VCol>
 
@@ -166,6 +167,7 @@ const handleReset = () => {
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.goal_id ? [error.goal_id] : []"
+                :loading="loadingGoals"
               />
             </VCol>
 

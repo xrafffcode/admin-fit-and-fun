@@ -11,7 +11,7 @@ const { loading, error } = storeToRefs(useMemberProgressStore())
 const { fetchMemberProgres, updateMemberProgress } = useMemberProgressStore()
 
 const { members } = storeToRefs(useMemberStore())
-const { fetchMembers } = useMemberStore()
+const { fetchMembers, loading: loadingMembers } = useMemberStore()
 
 const memberProgressId = route.params.id
 
@@ -97,6 +97,7 @@ const handleReset = () => {
                 label="Member"
                 required
                 :error-messages="error && error.member_id ? [error.member_id] : []"
+                :loading="loadingMembers"
               />
             </VCol>
            

@@ -9,7 +9,7 @@ const { loading, error } = storeToRefs(useMemberProgressStore())
 const { createMemberProgress } = useMemberProgressStore()
 
 const { members } = storeToRefs(useMemberStore())
-const { fetchMembers } = useMemberStore()
+const { fetchMembers, loading: loadingMembers } = useMemberStore()
 
 const memberProgress = ref({
   member_id: '',
@@ -81,6 +81,7 @@ onBeforeMount(() => {
                 label="Member"
                 required
                 :error-messages="error && error.member_id ? [error.member_id] : []"
+                :loading="loadingMembers"
               />
             </VCol>
            

@@ -13,13 +13,13 @@ const { loading, error } = storeToRefs(useAttendanceStore())
 const { createAttendance } = useAttendanceStore()
 
 const { members } = storeToRefs(useMemberStore())
-const { fetchMembers } = useMemberStore()
+const { fetchMembers, loading: loadingMembers } = useMemberStore()
 
 const { programs } = storeToRefs(useProgramStore())
-const { fetchPrograms } = useProgramStore()
+const { fetchPrograms, loading: loadingPrograms } = useProgramStore()
 
 const { shakes } = storeToRefs(useShakeStore())
-const { fetchShakes } = useShakeStore()
+const { fetchShakes, loading: loadingShakes } = useShakeStore()
 
 const attendance = ref({
   member_id: '',
@@ -100,6 +100,7 @@ onBeforeMount(() => {
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.member_id ? [error.member_id] : []"
+                :loading="loadingMembers"
               />
             </VCol>
 
@@ -114,6 +115,7 @@ onBeforeMount(() => {
                 item-title="title"
                 item-value="id"
                 :error-messages="error && error.program_id ? [error.program_id] : []"
+                :loading="loadingPrograms"
               />
             </VCol>
 
@@ -128,6 +130,7 @@ onBeforeMount(() => {
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.shake_id ? [error.shake_id] : []"
+                :loading="loadingShakes"
               />
             </VCol>
 

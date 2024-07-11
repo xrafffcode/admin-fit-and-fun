@@ -11,7 +11,7 @@ const { loading, error } = storeToRefs(useMembershipStore())
 const { fetchMembership, updateMembership } = useMembershipStore()
 
 const { members } = storeToRefs(useMemberStore())
-const { fetchMembers } = useMemberStore()
+const { fetchMembers, loading: loadingMembers } = useMemberStore()
 
 const membershipId = route.params.id
 
@@ -85,6 +85,7 @@ const handleReset = () => {
                 item-title="name"
                 item-value="id"
                 :error-messages="error && error.member_id ? [error.member_id] : []"
+                :loading="loadingMembers"
               />
             </VCol>
 
