@@ -4,6 +4,9 @@ import { onBeforeMount, ref } from 'vue'
 import { useMemberStore } from '@/stores/member'
 import { useCoachStore } from '@/stores/coach'
 import { useGoalStore } from '@/stores/goal'
+import { useAuthStore } from '@/stores/auth'
+
+const { user } = storeToRefs(useAuthStore())
 
 const { loading, error } = storeToRefs(useMemberStore())
 const { createMember } = useMemberStore()
@@ -39,6 +42,10 @@ const handleReset = () => {
 }
 
 const handleSubmit = () => {
+  if (user.value.role === 'coach') {
+    member.value.coach_id = user.value.profile.id
+  }
+
   createMember(member.value)
 }
 

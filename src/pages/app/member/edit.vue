@@ -5,6 +5,9 @@ import { onBeforeMount, ref } from 'vue'
 import { useMemberStore } from '@/stores/member'
 import { useCoachStore } from '@/stores/coach'
 import { useGoalStore } from '@/stores/goal'
+import { useAuthStore } from '@/stores/auth'
+
+const { user } = storeToRefs(useAuthStore())
 
 const route = useRoute()
 
@@ -144,6 +147,7 @@ const handleReset = () => {
             <VCol
               cols="12"
               md="12"
+              v-if="user?.role !== 'coach'"
             >
               <VAutocomplete
                 v-model="member.coach_id"
