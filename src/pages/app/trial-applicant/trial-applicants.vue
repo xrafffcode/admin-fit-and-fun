@@ -6,6 +6,10 @@ import { can } from '@/helpers/permissionHelper'
 
 const headers = [
   {
+    text: 'Date Created',
+    value: 'created_at',
+  },
+  {
     text: 'Name',
     value: 'name',
     width: 200,
