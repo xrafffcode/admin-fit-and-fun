@@ -56,6 +56,15 @@ checkAuth()
 
   <VerticalNavLink
     :item="{
+      title: 'Trial Applicant',
+      icon: 'bx-user-check',
+      to: '/app/trial-applicant',
+      permission: 'trial-applicant-list',
+    }"
+  />
+
+  <VerticalNavLink
+    :item="{
       title: 'Membership',
       icon: 'bx-id-card',
       to: '/app/membership',

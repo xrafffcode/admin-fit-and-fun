@@ -10,6 +10,7 @@ import programRoutes from "./program"
 import roleRoutes from "./role"
 import shakeRoutes from "./shake"
 import testimonialRoutes from "./testimonial"
+import trialApplicantRoutes from "./trial-applicant"
 import webConfigurationRoutes from "./web-configuration"
 
 const appRoutes = [
@@ -25,7 +26,8 @@ const appRoutes = [
   ...shakeRoutes,
   ...testimonialRoutes,
   ...webConfigurationRoutes,
-  ...memberProgressRoutes
+  ...memberProgressRoutes,
+  ...trialApplicantRoutes
 ]
 
 export default appRoutes
